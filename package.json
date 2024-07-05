@@ -1,0 +1,26 @@
+{
+  "name": "sakbot",
+  "version": "0.0.1",
+  "description": "A Discord Bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Skiawm91",
+  "license": "GNU GPL",
+  "dependencies": {
+    "discord.js": "^14.15.3"
+  },
+  "devDependencies": {
+    "eslint": "^9.6.0"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skiawm91/SakuraBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Skiawm91/SakuraBot/issues"
+  },
+  "homepage": "https://github.com/Skiawm91/SakuraBot#readme"
+}
