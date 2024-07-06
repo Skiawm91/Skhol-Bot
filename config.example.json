@@ -1,5 +1,6 @@
 {
     "appToken": "Your-App-Token",
     "clientID": "Your-App-ID",
-    "guildID": "Your-Developer-Server-ID"
+    "guildID": "Your-Developer-Server-ID",
+    "Status": "Online,DND,Idle,Invisible"
 }

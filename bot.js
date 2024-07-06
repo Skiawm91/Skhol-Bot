@@ -1,26 +1,34 @@
 // 這應該算是要求吧
-const { Client, Collection, Events, GatewayIntentBits} = require('discord.js');
-const { appToken } = require('./config.json');
+const { Client, Collection, Events, GatewayIntentBits, PresenceUpdateStatus } = require('discord.js');
+const { Status, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 const { exec } = require('child_process');
 // 程式開始運作
-console.log('SakuraBot v0.0.2');
-console.log('Made by Skiawm91');
+console.log('SakuraBot v0.0.2\nMade By Skiawm91\n');
 // 建立客戶端實作
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // 客戶端登入資訊
 client.once(Events.ClientReady, readyClient => {
     console.log('[資訊] 登入成功！');
     console.log(`[資訊] 登入的應用程式: ${readyClient.user.tag}`);
+    if (Status === 'DND') {
+        console.log('[資訊] 狀態設為: Do Not Disturb')
+        client.user.setStatus(PresenceUpdateStatus.DoNotDisturb)
+    } else {
+        console.log('[資訊] 狀態設為:', Status)
+        client.user.setStatus(PresenceUpdateStatus.Status)
+    }
 });
 // 監測錯誤
 client.on(Events.ShardError, error => {
-    console.error('[錯誤] 發生了錯誤: ', error);
+    console.error('[錯誤] 發生了錯誤:', error);
 });
 process.on('unhandledRejection', error => {
-    console.error('[錯誤] 發生了錯誤: ', error);
+    console.error('[錯誤] 發生了錯誤:', error);
 });
+// 設定狀態
+
 // 執行指令
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
