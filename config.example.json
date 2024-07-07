@@ -1,6 +1,8 @@
 {
     "appToken": "Your-App-Token",
     "clientID": "Your-App-ID",
-    "guildID": "Your-Developer-Server-ID",
-    "Status": "Online,DND,Idle,Invisible"
+    "guildID": "Your-Server-ID",
+    "Status": "Online,DND,Idle,Invisible",
+    "developerID": "Your-Discord-ID",
+    "logChannelID": "Your-Log-Channel-ID"
 }
