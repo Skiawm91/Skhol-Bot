@@ -1,11 +1,12 @@
 // 這應該算是要求吧
-const { Client, Collection, Events, GatewayIntentBits, PresenceUpdateStatus } = require('discord.js');
-const { Status, developerID, logChannelID, appToken } = require('./config.json');
+const { Client, Collection, Events, GatewayIntentBits, REST, Routes, PresenceUpdateStatus, EmbedBuilder } = require('discord.js');
+const { Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 const { exec } = require('child_process');
+const ver = '0.0.4';
 // 程式開始運作
-console.log('SakuraBot v0.0.3\nMade By Skiawm91\n');
+console.log('SakuraBot v0.0.4\nMade By Skiawm91\n');
 // 建立客戶端實作
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // 客戶端登入資訊
@@ -30,25 +31,28 @@ client.once(Events.ClientReady, readyClient => {
             client.user.setStatus(PresenceUpdateStatus.Status);
         } else {
             console.error('[錯誤] 狀態設定不正確！');
-        }
+        } 
     }
+    const Embed = new EmbedBuilder()
+        .setTitle(':white_check_mark: 應用程式資訊')
+        .setDescription(`開發者: Skiawm91\n版本: ${ver}\n`)
+    const logchannel = client.channels.cache.get(logChannelID);
+    logchannel.send({ embeds: [Embed] });
 });
 // 監測錯誤
 client.on(Events.ShardError, error => {
     console.error('[錯誤] 發生了錯誤！\n', error);
-    const channel = client.channels.cache.get(logChannelID);
-    channel.send(`## <@${developerID}> 發生了錯誤！\n"${error}"`);
+    const logchannel = client.channels.cache.get(logChannelID);
+    logchannel.send(`## <@${developerID}> 發生了錯誤！\n"${error}"`);
 });
 process.on('unhandledRejection', error => {
     console.error('[錯誤] 發生了錯誤！\n', error);
-    const channel = client.channels.cache.get(logChannelID);
-    channel.send(`## <@${developerID}> 發生了錯誤！\n${error}`);
+    const logchannel = client.channels.cache.get(logChannelID);
+    logchannel.send(`## <@${developerID}> 發生了錯誤！\n${error}`);
 });
-// 設定狀態
-
 // 執行指令
 client.commands = new Collection();
-const foldersPath = path.join(__dirname, 'commands');
+const foldersPath = path.join(__dirname, 'Application/commands');
 const commandFolders = fs.readdirSync(foldersPath);
 for (const folder of commandFolders) {
     const commandsPath = path.join(foldersPath, folder);
@@ -63,12 +67,40 @@ for (const folder of commandFolders) {
         }
     }
 }
+// 註冊指令
+const commands = [];
+for (const folder of commandFolders) {
+    const commandsPath = path.join(foldersPath, folder);
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+    for (file of commandFiles) {
+        const filePath = path.join(commandsPath, file);
+        const command = require(filePath);
+        if ('data' in command && 'execute' in command) {
+            commands.push(command.data.toJSON());
+        } else {
+            console.log(`[警告] 位於 ${filePath} 中的指令缺 "data" 或 "execute" 項！`);
+        }
+    }
+}
+const rest = new REST().setToken(appToken);
+(async () => {
+    try {
+        console.log(`[資訊] 開始註冊 ${commands.length} 條指令！`);
+        const data = await rest.put(
+            Routes.applicationCommands(clientID),
+            { body: commands },
+        );
+        console.log(`[資訊] 成功註冊 ${data.length} 條指令！\n`);
+    } catch(error) {
+        console.error(error);
+    }
+})();
 // 指令交互
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
     const command = interaction.client.commands.get(interaction.commandName);
     if (!command) {
-        console.error(`沒有與 ${interaction.commandName} 相符的指令！`);
+        console.error(`[錯誤] 沒有與 ${interaction.commandName} 相符的指令！`);
         return;
     }
     try {
