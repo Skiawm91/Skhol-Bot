@@ -21,5 +21,5 @@ module.exports = {
                 .setDescription(`使用者：${interaction.user.username} (${interaction.user.id})\n帳號創建日期：${interaction.user.createdAt}`);
             await interaction.reply({ embeds: [Embed] });
         }
-    }
-}
+    },
+};

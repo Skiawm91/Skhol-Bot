@@ -11,5 +11,5 @@ module.exports = {
             .setTitle(':ping_pong: Pong!')
             .setDescription(`Websocket 延遲: ${interaction.client.ws.ping}ms.\n 應用程式延遲: ${sent.createdTimestamp - interaction.createdTimestamp}ms`);
         await interaction.editReply({ embeds: [Embed] });
-    }
-}
+    },
+};

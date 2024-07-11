@@ -10,5 +10,5 @@ module.exports = {
             .setTitle('伺服器資訊')
             .setDescription(`伺服器：${interaction.guild.name} (${interaction.guild.id})\n創建日期：${interaction.guild.createdAt}\n伺服器人數: ${interaction.guild.memberCount}\n擁有者: <@${interaction.guild.ownerId}>`);
         await interaction.reply({ embeds: [Embed] });
-    }
-}
+    },
+};
