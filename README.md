@@ -1,9 +1,9 @@
-# SakuraBot
+# Skhol Bot
 **一個開源的應用程式（ Discord 這樣稱呼 ）
 <br/><br/>
-當前版本: `0.1.1`
+當前版本: `0.1.2`
 <br/>
-發布版本: `0.1.1`**
+發布版本: `0.1.2`**
 ## 如何使用 `Windows/macOS/Unix`
 **需求: node.js v18+**
 1. **填寫 `config.json` (很重要)**
