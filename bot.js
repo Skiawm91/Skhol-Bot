@@ -12,12 +12,20 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.on(Events.ShardError, error => {
     console.error('[錯誤] 發生了錯誤！\n', error);
     const logchannel = client.channels.cache.get(logChannelID);
-    logchannel.send(`## <@${developerID}> 發生了錯誤！\n"${error}"`);
+    const logEmbed = new EmbedBuilder()
+        .setColor('#ff0000')
+        .setTitle(':x: 錯誤內容')
+        .setDescription(`${error}`);
+    logchannel.send({ content: `## <@${developerID}> 發生了錯誤！\n"${error}"`, embeds: [logEmbed] });
 });
 process.on('unhandledRejection', error => {
     console.error('[錯誤] 發生了錯誤！\n', error);
     const logchannel = client.channels.cache.get(logChannelID);
-    logchannel.send(`## <@${developerID}> 發生了錯誤！\n${error}`);
+    const logEmbed = new EmbedBuilder()
+        .setColor('#ff0000')
+        .setTitle(':x: 錯誤內容')
+        .setDescription(`${error}`);
+    logchannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
 });
 // 註冊指令
 const commands = [];
