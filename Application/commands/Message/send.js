@@ -10,11 +10,6 @@ module.exports = {
                 .setName('頻道')
                 .setDescription('指定頻道')
                 .setRequired(true))
-        .addStringOption((option) =>
-            option
-                .setName('訊息')
-                .setDescription('輸入你想發送的訊息')
-                .setRequired(true))
         .addBooleanOption((option) =>
             option
                 .setName('嵌入式')
@@ -22,21 +17,48 @@ module.exports = {
                 .setRequired(true))
         .addStringOption((option) =>
             option
+                .setName('訊息')
+                .setDescription('輸入你想發送的訊息'))
+        .addStringOption((option) =>
+            option
                 .setName('標題')
-                .setDescription('嵌入式標題'))
+                .setDescription('嵌入式 - 標題'))
         .addStringOption((option) =>
             option
                 .setName('內文')
-                .setDescription('嵌入式內文')),
+                .setDescription('嵌入式 - 內文'))
+        .addStringOption((option) =>
+            option
+                .setName('頁尾')
+                .setDescription('嵌入式 - 頁尾')),
     async execute(interaction) {
         const channel = interaction.options.getChannel('頻道');
         const message = interaction.options.getString('訊息');
+        await interaction.reply({ content: '訊息已被發送！', ephemeral: true })
         if (interaction.options.getBoolean('嵌入式') == true) {
             var Embed = new EmbedBuilder()
                 .setTitle(interaction.options.getString('標題'))
-                .setDescription(interaction.options.getString('內文'));
+                .setDescription(interaction.options.getString('內文'))
+                .setFooter({ text: interaction.options.getString('頁尾') });
+            if (message) {
+                channel.send({ content: message, embeds: [Embed] }).catch(error => {
+                    if (error) {
+                        interaction.editReply('未成功發送訊息！');
+                    }
+                });
+            } else {
+                channel.send({ embeds: [Embed] }).catch(error => {
+                    if (error) {
+                        interaction.editReply('未成功發送訊息！');
+                    }
+                });
+            }
+        } else {
+            channel.send(message).catch(error => {
+                if (error) {
+                    interaction.editReply('未成功發送訊息！')
+                }
+            });
         }
-        channel.send({ content: message, embeds: [Embed] });
-        await interaction.reply({ content: '已成功發送訊息！', ephemeral: true })
     },
 };
