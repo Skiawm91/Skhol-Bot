@@ -14,10 +14,14 @@ module.exports = {
             option
                 .setName('原因')
                 .setDescription('填寫原因'))
-        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers | PermissionFlagsBits.BanMembers),
+        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     async execute(interaction) {
         const user = interaction.options.getUser('使用者');
-        interaction.guild.members.ban(user, {reason: interaction.options.getString('原因')});
         await interaction.reply({ content: `使用者 ${interaction.options.getMember('使用者')} 已被禁止進入伺服器！\n原因: ${interaction.options.getString('原因')}`, ephemeral: true });
+        interaction.guild.members.ban(user, {reason: interaction.options.getString('原因')}).catch(error => {
+            if (error) {
+                interaction.editReply({ content: `使用者 ${interaction.options.getMember('使用者')} 已被禁止進入伺服器！\n原因: ${interaction.options.getString('原因')}\n\n[錯誤] 無法禁止該使用者！`, ephemeral: true });
+            }
+        });
     },
 };

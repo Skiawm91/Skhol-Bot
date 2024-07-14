@@ -1,9 +1,9 @@
 // 這應該算是要求吧
-const { Client, Collection, Events, GatewayIntentBits, REST, Routes, PresenceUpdateStatus, EmbedBuilder } = require('discord.js');
-const { Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
+const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ActivityType, PresenceUpdateStatus, EmbedBuilder } = require('discord.js');
+const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
-const ver = '0.1.2';
+const ver = '0.2.0';
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
@@ -12,12 +12,20 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.on(Events.ShardError, error => {
     console.error('[錯誤] 發生了錯誤！\n', error);
     const logchannel = client.channels.cache.get(logChannelID);
-    logchannel.send(`## <@${developerID}> 發生了錯誤！\n"${error}"`);
+    const logEmbed = new EmbedBuilder()
+        .setColor('#ff0000')
+        .setTitle(':x: 錯誤內容')
+        .setDescription(`${error}`);
+    logchannel.send({ content: `## <@${developerID}> 發生了錯誤！\n"${error}"`, embeds: [logEmbed] });
 });
 process.on('unhandledRejection', error => {
     console.error('[錯誤] 發生了錯誤！\n', error);
     const logchannel = client.channels.cache.get(logChannelID);
-    logchannel.send(`## <@${developerID}> 發生了錯誤！\n${error}`);
+    const logEmbed = new EmbedBuilder()
+        .setColor('#ff0000')
+        .setTitle(':x: 錯誤內容')
+        .setDescription(`${error}`);
+    logchannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
 });
 // 註冊指令
 const commands = [];
@@ -77,23 +85,39 @@ for (const file of eventFiles) {
     }
 }
 // 設定狀態 & 發送應用程式資訊
-client.once(Events.ClientReady, readyClient => {
+client.once(Events.ClientReady, () => {
+    if (Type == 'Playing') {
+        var activityType = ActivityType.Playing;
+    } else if (Type == 'Watching') {
+        var activityType = ActivityType.Watching;
+    } else if (Type == 'Listening') {
+        var activityType = ActivityType.Listening;
+    } else if (Type == 'Streaming') {
+        var activityType = ActivityType.Streaming;
+    } else {
+        var activityType = ActivityType.Custom;
+    }
     if (Status == 'DND') {
         console.info('[資訊] 狀態設為: DoNotDisturb');
-        client.user.setStatus(PresenceUpdateStatus.DoNotDisturb);
+        console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
+        client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.DoNotDisturb });
     } else {
         if (Status == 'Online') {
             console.info('[資訊] 狀態設為:', Status);
-            client.user.setStatus(PresenceUpdateStatus.Status);
+            console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
+            client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.Online });
         } else if (Status == 'DoNotDisturb') {
             console.info('[資訊] 狀態設為:', Status);
-            client.user.setStatus(PresenceUpdateStatus.Status);
+            console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
+            client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.DoNotDisturb });
         } else if (Status == 'Idle') {
             console.info('[資訊] 狀態設為:', Status);
-            client.user.setStatus(PresenceUpdateStatus.Status);
+            console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
+            client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.Idle });
         } else if (Status == 'Invisible') {
             console.info('[資訊] 狀態設為:', Status);
-            client.user.setStatus(PresenceUpdateStatus.Status);
+            console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
+            client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.Invisible });
         } else {
             console.error('[錯誤] 狀態設定不正確！');
         } 

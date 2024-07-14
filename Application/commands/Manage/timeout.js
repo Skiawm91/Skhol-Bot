@@ -23,7 +23,11 @@ module.exports = {
     async execute(interaction) {
         const member = interaction.options.getMember('使用者');
         const time = interaction.options.getNumber('時間');
-        member.timeout(time * 1000, interaction.options.getString('原因'));
         await interaction.reply({ content: `使用者 ${member} 已被禁言！\n時間: ${time}秒\n原因: ${interaction.options.getString('原因')}`, ephemeral: true });
+        member.timeout(time * 1000, interaction.options.getString('原因')).catch(error => {
+            if (error) {
+                interaction.editReply({ content: `使用者 ${interaction.options.getMember('使用者')} 已被禁言！\n時間: ${time}秒\n原因: ${interaction.options.getString('原因')}\n\n[錯誤] 無法禁言該使用者！`, ephemeral: true });
+            }
+        });
     },
 };
