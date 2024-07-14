@@ -21,25 +21,47 @@ module.exports = {
                 .setDescription('輸入你想發送的訊息'))
         .addStringOption((option) =>
             option
+                .setName('頁首')
+                .setDescription('嵌入式 - Author'))
+        .addStringOption((option) =>
+            option
+                .setName('頁首圖示網址')
+                .setDescription('嵌入式 - Author Icon URL'))
+        .addStringOption((option) =>
+            option
+                .setName('頁首網址')
+                .setDescription('嵌入式 - Author URL'))
+        .addStringOption((option) =>
+            option
                 .setName('標題')
-                .setDescription('嵌入式 - 標題'))
+                .setDescription('嵌入式 - Title'))
+        .addStringOption((option) =>
+            option
+                .setName('標題網址')
+                .setDescription('嵌入式 - Title URL'))
         .addStringOption((option) =>
             option
                 .setName('內文')
-                .setDescription('嵌入式 - 內文'))
+                .setDescription('嵌入式 - Description'))
         .addStringOption((option) =>
             option
                 .setName('頁尾')
-                .setDescription('嵌入式 - 頁尾')),
+                .setDescription('嵌入式 - Footer'))
+        .addStringOption((option) =>
+            option
+                .setName('頁尾圖示網址')
+                .setDescription('嵌入式 - Footer Icon URL')),
     async execute(interaction) {
         const channel = interaction.options.getChannel('頻道');
-        const message = interaction.options.getString('訊息');
+        const message = interaction.options.getString('訊息').replaceAll('\\n', '\n');
         await interaction.reply({ content: '訊息已被發送！', ephemeral: true })
         if (interaction.options.getBoolean('嵌入式') == true) {
             var Embed = new EmbedBuilder()
+                .setAuthor({ name: interaction.options.getString('頁首'), iconURL: interaction.options.getString('頁首圖示網址'), url: interaction.options.getString('頁首網址') })
                 .setTitle(interaction.options.getString('標題'))
-                .setDescription(interaction.options.getString('內文'))
-                .setFooter({ text: interaction.options.getString('頁尾') });
+                .setURL(interaction.options.getString('標題網址'))
+                .setDescription(interaction.options.getString('內文').replaceAll('\\n', '\n'))
+                .setFooter({ text: interaction.options.getString('頁尾'), iconURL: interaction.options.getString('頁尾圖示網址') });
             if (message) {
                 channel.send({ content: message, embeds: [Embed] }).catch(error => {
                     if (error) {
