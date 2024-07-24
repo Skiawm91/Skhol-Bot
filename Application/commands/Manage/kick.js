@@ -19,9 +19,7 @@ module.exports = {
         const member = interaction.options.getMember('使用者');
         await interaction.reply({ content: `使用者 ${member} 已被踢出伺服器！\n原因: ${interaction.options.getString('原因')}`, ephemeral: true });
         member.kick(reason=interaction.options.getString('原因')).catch(error => {
-            if (error) {
                 interaction.editReply({ content: `使用者 ${interaction.options.getMember('使用者')} 已被踢出伺服器！\n原因: ${interaction.options.getString('原因')}\n\n[錯誤] 無法踢出該使用者！`, ephemeral: true });
-            }
         });
     },
 };

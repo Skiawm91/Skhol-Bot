@@ -2,7 +2,7 @@
     "appToken": "Your-App-Token",
     "clientID": "Your-App-ID",
     "guildID": "Your-Server-ID",
-    "activityText": "Skhol Bot By Skiawm91",
+    "activityText": "預設 Skhol Bot 狀態文字",
     "Type": "Playing,Watching,Listening,Streaming,Custom",
     "Status": "Online,DND,Idle,Invisible",
     "developerID": "Your-Discord-ID",

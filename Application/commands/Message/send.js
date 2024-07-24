@@ -70,9 +70,7 @@ module.exports = {
                 });
             } else {
                 channel.send({ embeds: [Embed] }).catch(error => {
-                    if (error) {
-                        interaction.editReply('未成功發送訊息！');
-                    }
+                    interaction.editReply('未成功發送訊息！');
                 });
             }
         } else {

@@ -3,7 +3,7 @@ const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ActivityTyp
 const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
-const ver = '0.2.1';
+const ver = '0.2.5';
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
@@ -99,7 +99,7 @@ client.once(Events.ClientReady, () => {
     const Embed = new EmbedBuilder()
         .setTitle(':white_check_mark: 應用程式資訊')
         .setDescription(`開發者: Skiawm91\n版本: ${ver}`)
-        .setFooter({ text: 'Skhol Bot' })
+        .setFooter({ text: 'Skhol Bot', iconURL: client.user.displayAvatarURL(clientID) })
     const logchannel = client.channels.cache.get(logChannelID);
     logchannel.send({ embeds: [Embed] });
 });
