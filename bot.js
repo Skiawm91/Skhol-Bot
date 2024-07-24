@@ -16,7 +16,7 @@ client.on(Events.ShardError, error => {
         .setColor('#ff0000')
         .setTitle(':x: 錯誤內容')
         .setDescription(`${error}`);
-    logchannel.send({ content: `## <@${developerID}> 發生了錯誤！\n"${error}"`, embeds: [logEmbed] });
+    logchannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
 });
 process.on('unhandledRejection', error => {
     console.error('[錯誤] 發生了錯誤！\n', error);
@@ -86,45 +86,20 @@ for (const file of eventFiles) {
 }
 // 設定狀態 & 發送應用程式資訊
 client.once(Events.ClientReady, () => {
-    if (Type == 'Playing') {
-        var activityType = ActivityType.Playing;
-    } else if (Type == 'Watching') {
-        var activityType = ActivityType.Watching;
-    } else if (Type == 'Listening') {
-        var activityType = ActivityType.Listening;
-    } else if (Type == 'Streaming') {
-        var activityType = ActivityType.Streaming;
+    if (Type == 'Playing') {var activityType = ActivityType.Playing;} else if (Type == 'Watching') {var activityType = ActivityType.Watching;} else if (Type == 'Listening') {var activityType = ActivityType.Listening;} else if (Type == 'Streaming') {var activityType = ActivityType.Streaming;} else {var activityType = ActivityType.Custom;}
+    if (Status == 'Online') {var statusType = PresenceUpdateStatus.Online} else if (Status == 'DoNotDisturb' || Status == 'DND') {var statusType = PresenceUpdateStatus.DoNotDisturb} else if (Status == 'Idle') {var statusType = PresenceUpdateStatus.Idle} else if (Status == 'Invisible') {var statusType = PresenceUpdateStatus.Invisible}
+    if (Status == 'Online' || Status == 'DoNotDisturb' || Status == 'DND' || Status == 'Idle' || Status == 'Invisible') {
+        console.info('[資訊] 狀態設為:', Status);
+        console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText)
+        client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.Invisible });
     } else {
-        var activityType = ActivityType.Custom;
-    }
-    if (Status == 'DND') {
-        console.info('[資訊] 狀態設為: DoNotDisturb');
+        console.error('[錯誤] 狀態設定不正確！');
         console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
-        client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.DoNotDisturb });
-    } else {
-        if (Status == 'Online') {
-            console.info('[資訊] 狀態設為:', Status);
-            console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
-            client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.Online });
-        } else if (Status == 'DoNotDisturb') {
-            console.info('[資訊] 狀態設為:', Status);
-            console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
-            client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.DoNotDisturb });
-        } else if (Status == 'Idle') {
-            console.info('[資訊] 狀態設為:', Status);
-            console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
-            client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.Idle });
-        } else if (Status == 'Invisible') {
-            console.info('[資訊] 狀態設為:', Status);
-            console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
-            client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.Invisible });
-        } else {
-            console.error('[錯誤] 狀態設定不正確！');
-        } 
     }
     const Embed = new EmbedBuilder()
         .setTitle(':white_check_mark: 應用程式資訊')
-        .setDescription(`開發者: Skiawm91\n版本: ${ver}\n`)
+        .setDescription(`開發者: Skiawm91\n版本: ${ver}`)
+        .setFooter({ text: 'Skhol Bot' })
     const logchannel = client.channels.cache.get(logChannelID);
     logchannel.send({ embeds: [Embed] });
 });
