@@ -91,7 +91,7 @@ client.once(Events.ClientReady, () => {
     if (Status == 'Online' || Status == 'DoNotDisturb' || Status == 'DND' || Status == 'Idle' || Status == 'Invisible') {
         console.info('[資訊] 狀態設為:', Status);
         console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText)
-        client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: PresenceUpdateStatus.Invisible });
+        client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: statusType });
     } else {
         console.error('[錯誤] 狀態設定不正確！');
         console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
