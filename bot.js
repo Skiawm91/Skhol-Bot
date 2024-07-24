@@ -3,7 +3,7 @@ const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ActivityTyp
 const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
-const ver = '0.2.0';
+const ver = '0.2.1';
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作

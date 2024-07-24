@@ -1,7 +1,8 @@
 # Skhol Bot
 **一個開源的應用程式（ Discord 這樣稱呼 ）
 <br/><br/>
-當前版本: `0.2.0`**
+Code: `0.2.1`
+Release: `0.2.0`**
 ## 需求
 1. **[Node.js v18 及以上版本](https://nodejs.org/en/download/prebuilt-installer)**
 ## 如何使用 `Windows/macOS/Linux`
