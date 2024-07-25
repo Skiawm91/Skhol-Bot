@@ -53,7 +53,11 @@ module.exports = {
                 .setDescription('嵌入式 - Footer Icon URL')),
     async execute(interaction) {
         const channel = interaction.options.getChannel('頻道');
-        const message = interaction.options.getString('訊息').replaceAll('\\n', '\n');
+        if (interaction.options.getString('訊息')) {
+            var message = interaction.options.getString('訊息').replaceAll('\\n', '\n');
+        } else {
+            var message = interaction.options.getString('訊息');
+        }
         await interaction.reply({ content: '訊息已被發送！', ephemeral: true })
         if (interaction.options.getBoolean('嵌入式') == true) {
             var Embed = new EmbedBuilder()
@@ -64,9 +68,7 @@ module.exports = {
                 .setFooter({ text: interaction.options.getString('頁尾'), iconURL: interaction.options.getString('頁尾圖示網址') });
             if (message) {
                 channel.send({ content: message, embeds: [Embed] }).catch(error => {
-                    if (error) {
-                        interaction.editReply('未成功發送訊息！');
-                    }
+                    interaction.editReply('未成功發送訊息！');
                 });
             } else {
                 channel.send({ embeds: [Embed] }).catch(error => {
@@ -75,9 +77,7 @@ module.exports = {
             }
         } else {
             channel.send(message).catch(error => {
-                if (error) {
-                    interaction.editReply('未成功發送訊息！')
-                }
+                interaction.editReply('未成功發送訊息！')
             });
         }
     },

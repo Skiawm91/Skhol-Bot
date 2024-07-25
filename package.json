@@ -1,6 +1,6 @@
 {
   "name": "sakbot",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Discord Bot, using discord.js v14.",
   "main": "bot.js",
   "scripts": {
