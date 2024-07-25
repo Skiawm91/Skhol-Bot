@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
 // 創建指令
 module.exports = {
     data: new SlashCommandBuilder()
@@ -53,11 +53,8 @@ module.exports = {
                 .setDescription('嵌入式 - Footer Icon URL')),
     async execute(interaction) {
         const channel = interaction.options.getChannel('頻道');
-        if (interaction.options.getString('訊息')) {
-            var message = interaction.options.getString('訊息').replaceAll('\\n', '\n');
-        } else {
-            var message = interaction.options.getString('訊息');
-        }
+        if (interaction.options.getString('訊息')) {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n');} else {var message = interaction.options.getString('訊息');}
+        if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n').replaceAll('＠everyone', '@everyone');} else {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n').replaceAll('@everyone', '＠everyone');}
         await interaction.reply({ content: '訊息已被發送！', ephemeral: true })
         if (interaction.options.getBoolean('嵌入式') == true) {
             var Embed = new EmbedBuilder()
