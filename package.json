@@ -1,7 +1,7 @@
 {
-  "name": "sakbot",
-  "version": "0.2.7",
-  "description": "Discord Bot, using discord.js v14.",
+  "name": "Skhol-Bot",
+  "version": "0.2.8",
+  "description": "A Discord Bot, using discord.js v14.",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
