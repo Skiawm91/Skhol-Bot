@@ -1,5 +1,5 @@
 {
-  "name": "Skhol-Bot",
+  "name": "skhol-bot",
   "version": "0.2.8",
   "description": "A Discord Bot, using discord.js v14.",
   "main": "bot.js",
