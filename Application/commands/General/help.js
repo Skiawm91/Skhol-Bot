@@ -30,7 +30,7 @@ module.exports = {
         const Row = new ActionRowBuilder()
             .setComponents(Select);
         const response = await interaction.reply({ embeds: [Embed], components: [Row] });
-        const collector = response.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 3_600_000 });
+        const collector = response.createMessageComponentCollector({ componentType: ComponentType.StringSelect });
         collector.on('collect', async interaction => {
             const selection = interaction.values[0];
             if (selection == 'General') {
