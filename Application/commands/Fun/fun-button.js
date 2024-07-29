@@ -24,15 +24,16 @@ module.exports = {
         const channel = interaction.options.getChannel('頻道');
         const message = interaction.options.getString('訊息');
         const Button = new ButtonBuilder()
-            .setCustomId('Button')
+            .setCustomId('button')
             .setLabel(interaction.options.getString('按鈕名稱'))
             .setStyle(ButtonStyle.Primary);
         const Row = new ActionRowBuilder()
             .addComponents(Button);
-        const response = await interaction.reply({ components: [Row] });
+        await interaction.reply({ content: '訊息已被發送！', ephemeral: true });
+        const response = await channel.send({ components: [Row] });
         const collector = response.createMessageComponentCollector({ componentType: ComponentType.Button });
         collector.on('collect', async interaction => {
-            if (interaction.customId == 'Button') {
+            if (interaction.customId == 'button') {
                 await interaction.reply({ content: message, ephemeral: true });
             }
         });
