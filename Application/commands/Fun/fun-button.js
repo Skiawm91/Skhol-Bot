@@ -22,7 +22,7 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
         const channel = interaction.options.getChannel('頻道');
-        const message = interaction.options.getString('訊息');
+        const message = interaction.options.getString('訊息').replaceAll('\\n', '\n');
         const Button = new ButtonBuilder()
             .setCustomId('button')
             .setLabel(interaction.options.getString('按鈕名稱'))

@@ -18,7 +18,7 @@ client.on(Events.ShardError, error => {
         .setDescription(`${error}`);
     logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
 });
-process.on('unhandledRejection', error => {
+process.on('unhandledRejection', async (error) => {
     console.error('[錯誤] 發生了錯誤！\n', error);
     const logChannel = client.channels.cache.get(logChannelID);
     const logEmbed = new EmbedBuilder()
@@ -26,7 +26,18 @@ process.on('unhandledRejection', error => {
         .setTitle(':x: 錯誤內容')
         .setDescription(`${error}`);
     logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
-});
+}).on('uncaughtException', async (error) => {
+    console.error('[錯誤] 發生了錯誤！\n', error);
+    const logChannel = client.channels.cache.get(logChannelID);
+    const logEmbed = new EmbedBuilder()
+        .setColor('#ff0000')
+        .setTitle(':x: 錯誤內容')
+        .setDescription(`${error}`);
+    logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
+}).on('exit', async (code) => {
+    console.info('[資訊] 應用程式已關閉！');
+})
+
 // 註冊指令
 const commands = [];
 const foldersPath = path.join(__dirname, 'Application/commands');
