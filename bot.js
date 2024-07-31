@@ -1,5 +1,6 @@
 // 這應該算是要求吧
 const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ActivityType, PresenceUpdateStatus, EmbedBuilder } = require('discord.js');
+const axios = require('axios');
 const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
