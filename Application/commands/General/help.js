@@ -15,6 +15,14 @@ module.exports = {
             .setPlaceholder('選擇一個指令類別')
             .addOptions(
                 new StringSelectMenuOptionBuilder()
+                    .setLabel('開發者指令')
+                    .setDescription('這個應用的開發者才可使用的指令')
+                    .setValue('Developer'),
+                new StringSelectMenuOptionBuilder()
+                    .setLabel('有趣的指令')
+                    .setDescription('所有使用者皆可用的指令 (Fun)')
+                    .setValue('Fun'),
+                new StringSelectMenuOptionBuilder()
                     .setLabel('一般指令')
                     .setDescription('所有使用者皆可用的指令')
                     .setValue('General'),
@@ -33,10 +41,20 @@ module.exports = {
         const collector = response.createMessageComponentCollector({ componentType: ComponentType.StringSelect });
         collector.on('collect', async interaction => {
             const selection = interaction.values[0];
-            if (selection == 'General') {
+            if (selection == 'Developer') {
+                const Embed = new EmbedBuilder()
+                .setTitle('指令列表 - 開發者指令')
+                .setDescription('testerror - 讓應用程式發送測試錯誤訊息至日誌頻道');
+                await interaction.reply({ embeds: [Embed], ephemeral: true });
+            } else if (selection == 'Fun') {
+                const Embed = new EmbedBuilder()
+                    .setTitle('指令列表 - 有趣的指令')
+                    .setDescription('fun-button - 創建一個有趣的按鈕\nminecraft player - 取得 Minecraft 玩家資訊\nminecraft server - 取得 Minecraft 伺服器資訊');
+                await interaction.reply({ embeds: [Embed], ephemeral: true });
+            } else if (selection == 'General') {
                 const Embed = new EmbedBuilder()
                     .setTitle('指令列表 - 一般指令')
-                    .setDescription('help - 幫助使用者使用指令\nping - 回傳應用程式的狀態\ninfouser - 取得使用者的資訊\ninfoserver - 取得伺服器的資訊')
+                    .setDescription('help - 幫助使用者使用指令\nping - 回傳應用程式的狀態\ninfo user - 取得使用者的資訊\ninfo server - 取得伺服器的資訊');
                 await interaction.reply({ embeds: [Embed], ephemeral: true });
             } else if (selection == 'Manage') {
                 const Embed = new EmbedBuilder()
