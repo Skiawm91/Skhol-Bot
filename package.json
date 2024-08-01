@@ -1,6 +1,6 @@
 {
   "name": "skhol-bot",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "A Discord Bot, using discord.js v14.",
   "main": "bot.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "Skiawm91",
   "license": "GNU GPL",
   "dependencies": {
+    "axios": "^1.7.2",
     "discord.js": "^14.15.3"
   },
   "devDependencies": {

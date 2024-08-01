@@ -1,9 +1,10 @@
 // 這應該算是要求吧
 const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ActivityType, PresenceUpdateStatus, EmbedBuilder } = require('discord.js');
+const axios = require('axios');
 const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
-const ver = '0.2.8';
+const ver = '0.3.0';
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
@@ -11,22 +12,33 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // 監測錯誤
 client.on(Events.ShardError, error => {
     console.error('[錯誤] 發生了錯誤！\n', error);
-    const logchannel = client.channels.cache.get(logChannelID);
+    const logChannel = client.channels.cache.get(logChannelID);
     const logEmbed = new EmbedBuilder()
         .setColor('#ff0000')
         .setTitle(':x: 錯誤內容')
         .setDescription(`${error}`);
-    logchannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
+    logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
 });
-process.on('unhandledRejection', error => {
+process.on('unhandledRejection', async (error) => {
     console.error('[錯誤] 發生了錯誤！\n', error);
-    const logchannel = client.channels.cache.get(logChannelID);
+    const logChannel = client.channels.cache.get(logChannelID);
     const logEmbed = new EmbedBuilder()
         .setColor('#ff0000')
         .setTitle(':x: 錯誤內容')
         .setDescription(`${error}`);
-    logchannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
-});
+    logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
+}).on('uncaughtException', async (error) => {
+    console.error('[錯誤] 發生了錯誤！\n', error);
+    const logChannel = client.channels.cache.get(logChannelID);
+    const logEmbed = new EmbedBuilder()
+        .setColor('#ff0000')
+        .setTitle(':x: 錯誤內容')
+        .setDescription(`${error}`);
+    logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
+}).on('exit', async (code) => {
+    console.info('[資訊] 應用程式已關閉！');
+})
+
 // 註冊指令
 const commands = [];
 const foldersPath = path.join(__dirname, 'Application/commands');
@@ -90,11 +102,11 @@ client.once(Events.ClientReady, () => {
     if (Status == 'Online') {var statusType = PresenceUpdateStatus.Online} else if (Status == 'DoNotDisturb' || Status == 'DND') {var statusType = PresenceUpdateStatus.DoNotDisturb} else if (Status == 'Idle') {var statusType = PresenceUpdateStatus.Idle} else if (Status == 'Invisible') {var statusType = PresenceUpdateStatus.Invisible}
     if (Status == 'Online' || Status == 'DoNotDisturb' || Status == 'DND' || Status == 'Idle' || Status == 'Invisible') {
         console.info('[資訊] 狀態設為:', Status);
-        console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText)
+        console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText,'\n');
         client.user.setPresence({ activities: [{ name: activityText, type: activityType }], status: statusType });
     } else {
         console.error('[錯誤] 狀態設定不正確！');
-        console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText);
+        console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', activityText,'\n');
     }
     const Embed = new EmbedBuilder()
         .setTitle(':white_check_mark: 應用程式資訊')
