@@ -4,13 +4,13 @@ const axios = require('axios');
 const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
-const ver = '0.3.0';
+const ver = '0.3.1';
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // 監測錯誤
-client.on(Events.ShardError, error => {
+client.on(Events.ShardError, async (error) => {
     console.error('[錯誤] 發生了錯誤！\n', error);
     const logChannel = client.channels.cache.get(logChannelID);
     const logEmbed = new EmbedBuilder()
@@ -52,7 +52,7 @@ for (const folder of commandFolders) {
         if ('data' in command && 'execute' in command) {
             commands.push(command.data.toJSON());
         } else {
-            console.warn(`[警告] 位於 ${filePath} 中的指令缺 "data" 或 "execute" 項！`);
+            console.warn(`[警告] 位於 ${filePath} 中的指令缺少 "data" 或 "execute" 項！`);
         }
     }
 }
@@ -80,7 +80,7 @@ for (const folder of commandFolders) {
         if ('data' in command && 'execute' in command) {
             client.commands.set(command.data.name, command);
         } else {
-            console.warn(`[警告] 位於 ${filePath} 中的指令缺 "data" 或 "execute" 項！`);
+            console.warn(`[警告] 位於 ${filePath} 中的指令缺少 "data" 或 "execute" 項！`);
         }
     }
 }

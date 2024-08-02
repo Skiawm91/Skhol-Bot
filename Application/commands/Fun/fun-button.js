@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 // 創建指令
 module.exports = {
     data: new SlashCommandBuilder()
