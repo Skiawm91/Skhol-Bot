@@ -3,7 +3,7 @@
 <br/><br/>
 Code: `0.3.1`
 <br/>
-Release: `0.3.0`**
+Release: `0.3.1`**
 ## 需求
 1. **[Node.js v18 及以上版本](https://nodejs.org/en/download/prebuilt-installer)**
 ## 如何使用 `Windows/macOS/Linux`
