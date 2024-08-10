@@ -1,6 +1,6 @@
 {
   "name": "skhol-bot",
-  "version": "0.3.2s",
+  "version": "0.3.2",
   "description": "A Discord Bot, using discord.js v14.",
   "main": "bot.js",
   "scripts": {
