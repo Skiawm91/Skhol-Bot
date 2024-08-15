@@ -12,6 +12,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // 監測錯誤
 client.on(Events.ShardError, async (error) => {
     console.error('[錯誤] 發生了錯誤！', error);
+    const logChannel = client.channels.chahe.get(logChannelID);
     const stackLines = error.stack.split('\n');
     const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
     const logEmbed = new EmbedBuilder()
@@ -23,6 +24,7 @@ client.on(Events.ShardError, async (error) => {
 });
 process.on('unhandledRejection', async (error) => {
     console.error('[錯誤] 發生了錯誤！', error);
+    const logChannel = client.channels.chahe.get(logChannelID);
     const stackLines = error.stack.split('\n');
     const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
     const logEmbed = new EmbedBuilder()
@@ -33,6 +35,7 @@ process.on('unhandledRejection', async (error) => {
     logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
 }).on('uncaughtException', async (error) => {
     console.error('[錯誤] 發生了錯誤！\n', error);
+    const logChannel = client.channels.chahe.get(logChannelID);
     const stackLines = error.stack.split('\n');
     const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
     const logEmbed = new EmbedBuilder()
