@@ -4,7 +4,7 @@ const axios = require('axios');
 const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
-const ver = '0.3.2';
+const ver = '0.3.3';
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
@@ -12,6 +12,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // 監測錯誤
 client.on(Events.ShardError, async (error) => {
     console.error('[錯誤] 發生了錯誤！', error);
+    const logChannel = client.channels.chahe.get(logChannelID);
     const stackLines = error.stack.split('\n');
     const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
     const logEmbed = new EmbedBuilder()
@@ -23,6 +24,7 @@ client.on(Events.ShardError, async (error) => {
 });
 process.on('unhandledRejection', async (error) => {
     console.error('[錯誤] 發生了錯誤！', error);
+    const logChannel = client.channels.chahe.get(logChannelID);
     const stackLines = error.stack.split('\n');
     const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
     const logEmbed = new EmbedBuilder()
@@ -33,6 +35,7 @@ process.on('unhandledRejection', async (error) => {
     logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
 }).on('uncaughtException', async (error) => {
     console.error('[錯誤] 發生了錯誤！\n', error);
+    const logChannel = client.channels.chahe.get(logChannelID);
     const stackLines = error.stack.split('\n');
     const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
     const logEmbed = new EmbedBuilder()

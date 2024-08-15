@@ -49,28 +49,29 @@ module.exports = {
                 await interaction.reply({ content: '玩家ID在3~16個字元之間！', ephemeral: true });
             }
         } else if (interaction.options.getSubcommand() == 'server') {
-            const ip = interaction.options.getString('伺服器');
+            const host = interaction.options.getString('伺服器');
             if (interaction.options.getBoolean('基岩版') == true) {
-                var target = await axios.get(`https://api.mcsrvstat.us/bedrock/3/${ip}`);
+                var target = await axios.get(`https://api.mcstatus.io/v2/status/bedrock/${host}`);
             } else {
-                var target = await axios.get(`https://api.mcsrvstat.us/3/${ip}`);
+                var target = await axios.get(`https://api.mcstatus.io/v2/status/java/${host}`);
             }
             const data = target.data;
-            if (data.debug.error) {
-                await interaction.reply(`伺服器 ${ip} 不存在或出現錯誤！`);
+            if (!data.ip_address) {
+                await interaction.reply(`伺服器 ${host} 不存在！`);
             } else {
                 const online = data.online;
+                const address = data.ip_address;
                 const port = data.port;
                 const software = data.software ?? '原版';
-                const version = data.version;
+                const version = data.version.name_clean;
                 const motd = data.motd.clean;
                 const onlineplayer = data.players.online;
                 const maxplayer = data.players.max;
                 const Embed = new EmbedBuilder()
-                    .setAuthor({ name: `伺服器 ${ip} 的資訊` })
+                    .setAuthor({ name: `伺服器 ${host} 的資訊` })
                     .addFields(
                         { name: '**是否在線**', value: `${online}`, inline: true },
-                        { name: '**IP**', value: `${ip}`, inline: true },
+                        { name: '**IP**', value: `${address}`, inline: true },
                         { name: '**Port**', value: `${port}`, inline: true },
                         { name: '**版本**', value: `${software} ${version}`, inline: true },
                         { name: '**玩家**', value: `${onlineplayer}/${maxplayer}`, inline: true },
