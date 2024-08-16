@@ -1,10 +1,18 @@
 // 這應該算是要求吧
 const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ActivityType, PresenceUpdateStatus, EmbedBuilder } = require('discord.js');
 const axios = require('axios');
-const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
+const config = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 const ver = '0.4.0';
+// 設定檔 (Config)
+const appToken = config.appToken;
+const clientID = config.clientID;
+const activityText = config.activityText;
+const Type = config.Type;
+const Status = config.Status;
+const developerID = config.developerID;
+const logChannelID = config.logChannelID;
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
