@@ -62,7 +62,7 @@ module.exports = {
                 const online = data.online;
                 const address = data.ip_address;
                 const port = data.port;
-                const version = data.version.name ?? data.version.name.clean;
+                const version = data.version.name ?? data.version.name_clean;
                 const motd = data.motd.clean;
                 const onlineplayer = data.players.online;
                 const maxplayer = data.players.max;
@@ -72,7 +72,7 @@ module.exports = {
                         { name: '**是否在線**', value: `${online}`, inline: true },
                         { name: '**IP**', value: `${address}`, inline: true },
                         { name: '**Port**', value: `${port}`, inline: true },
-                        { name: '**版本**', value: `${software} ${version}`, inline: true },
+                        { name: '**版本**', value: `${version}`, inline: true },
                         { name: '**玩家**', value: `${onlineplayer}/${maxplayer}`, inline: true },
                         {name: '**描述**', value: `${motd}`, inline: false },
                     );
