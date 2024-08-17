@@ -1,10 +1,11 @@
 {
-    "appToken": "Your-App-Token",
-    "clientID": "Your-App-ID",
-    "guildID": "Your-Server-ID",
-    "activityText": "預設 Skhol Bot 狀態文字",
+    "AppToken": "Your-App-Token",
+    "ClientID": "Your-App-ID",
+    "GuildID": "Your-Server-ID",
+    "ActivityText": "預設 Skhol Bot 狀態文字",
     "Type": "Playing,Watching,Listening,Streaming,Custom",
     "Status": "Online,DND,Idle,Invisible",
-    "developerID": "Your-Discord-ID",
-    "logChannelID": "Your-Log-Channel-ID"
+    "DeveloperID": "Your-Discord-ID",
+    "LogChannelID": "Your-Log-Channel-ID",
+    "Language": "zh_TW,en_US"
 }

@@ -6,13 +6,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const ver = '0.4.0';
 // 設定檔 (Config)
-const appToken = config.appToken;
-const clientID = config.clientID;
-const activityText = config.activityText;
+const appToken = config.AppToken;
+const clientID = config.ClientID;
+const activityText = config.ActivityText;
 const Type = config.Type;
 const Status = config.Status;
-const developerID = config.developerID;
-const logChannelID = config.logChannelID;
+const developerID = config.DeveloperID;
+const logChannelID = config.LogChannelID;
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
