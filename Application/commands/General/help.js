@@ -1,8 +1,6 @@
 // 這應該算是要求吧
 const { SlashCommandBuilder ,EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ComponentType } = require('discord.js');
-const config = require('../../../config.json');
-// 設定檔 (Config)
-const Lang = config.Language;
+const i18next = require('i18next');
 // 創建指令
 module.exports = {
     data: new SlashCommandBuilder()
@@ -45,17 +43,10 @@ module.exports = {
         collector.on('collect', async interaction => {
             const selection = interaction.values[0];
             if (selection == 'Developer') {
-                if (Lang == 'zh_TW') {
-                    const Embed = new EmbedBuilder()
-                    .setTitle('指令列表 - 開發者指令')
-                    .setDescription('testerror - 讓應用程式發送測試錯誤訊息至日誌頻道');
-                    await interaction.reply({ embeds: [Embed], ephemeral: true });
-                } else if (Lang == 'en_US') {
-                    const Embed = new EmbedBuilder()
-                    .setTitle('Command List - Developer Command')
-                    .setDescription('testerror - Send error message to log channel.');
-                    await interaction.reply({ embeds: [Embed], ephemeral: true });
-                }
+                const Embed = new EmbedBuilder()
+                .setTitle('指令列表 - 開發者指令')
+                .setDescription('testerror - 讓應用程式發送測試錯誤訊息至日誌頻道');
+                await interaction.reply({ embeds: [Embed], ephemeral: true });
             } else if (selection == 'Fun') {
                 const Embed = new EmbedBuilder()
                     .setTitle('指令列表 - 有趣的指令')
