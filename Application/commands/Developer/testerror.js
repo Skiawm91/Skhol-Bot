@@ -8,6 +8,7 @@ module.exports = {
         .setDescription('讓應用程式發送測試錯誤訊息至日誌頻道'),
     async execute(interaction) {
         if (interaction.user.id == developerID) {
+            await interaction.deferReply({ ephemeral: true });
             const logChannel = interaction.client.channels.cache.get(logChannelID);
             try {
                 throw new Error('這是一條測試錯誤的訊息');
@@ -22,9 +23,9 @@ module.exports = {
                 .setTimestamp()
                 logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
             }
-            await interaction.reply({ content: '測試錯誤訊息已發送！', ephemeral: true });
+            await interaction.followUp({ content: '測試錯誤訊息已發送！'});
         } else {
-            await interaction.reply({ content: '您沒有權限運行這個指令！', ephemeral: true });
+            await interaction.followUp({ content: '您沒有權限運行這個指令！' });
         }
     },
 };

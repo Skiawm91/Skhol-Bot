@@ -32,6 +32,7 @@ module.exports = {
                         .setRequired(true)),
         ),
     async execute(interaction) {
+        await interaction.deferReply();
         if (interaction.options.getSubcommand() == 'player') {
             const id = interaction.options.getString('玩家');
             if (id.length < 16 || id.length > 3) {
@@ -44,9 +45,9 @@ module.exports = {
                     .setAuthor({ name: `玩家 ${id} 的資訊` })
                     .setThumbnail(avatar)
                     .setDescription(`UUID: ${uuid}\nSkin: [下載](${skin})`);
-                await interaction.reply({ embeds: [Embed] });
+                await interaction.followUp({ embeds: [Embed] });
             } else {
-                await interaction.reply({ content: '玩家ID在3~16個字元之間！', ephemeral: true });
+                await interaction.followUp({ content: '玩家ID在3~16個字元之間！', ephemeral: true });
             }
         } else if (interaction.options.getSubcommand() == 'server') {
             const host = interaction.options.getString('伺服器');
@@ -57,7 +58,7 @@ module.exports = {
             }
             const data = target.data;
             if (!data.ip_address) {
-                await interaction.reply(`伺服器 ${host} 不存在！`);
+                await interaction.followUp(`伺服器 ${host} 不存在！`);
             } else {
                 const online = data.online;
                 const address = data.ip_address;
@@ -76,7 +77,7 @@ module.exports = {
                         { name: '**玩家**', value: `${onlineplayer}/${maxplayer}`, inline: true },
                         {name: '**描述**', value: `${motd}`, inline: false },
                     );
-                await interaction.reply({ embeds: [Embed] });
+                await interaction.followUp({ embeds: [Embed] });
             }
         }
     },

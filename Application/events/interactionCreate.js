@@ -15,7 +15,7 @@ module.exports = {
             } catch (error) {
                 console.error(error);
                 if (interaction.replied || interaction.deferred) {
-                    await interaction.fullowup({ content: '執行這個指令時出現錯誤！', ephemeral: true});
+                    await interaction.followUp({ content: '執行這個指令時出現錯誤！', ephemeral: true});
                 } else {
                     await interaction.reply({ content: '執行這個指令時出現錯誤！', ephemeral: true });
                 }

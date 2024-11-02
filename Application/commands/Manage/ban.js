@@ -16,10 +16,11 @@ module.exports = {
                 .setDescription('填寫原因'))
         .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     async execute(interaction) {
+        await interaction.deferReply({ ephemeral: true });
         const user = interaction.options.getUser('使用者');
-        await interaction.reply({ content: `使用者 ${interaction.options.getMember('使用者')} 已被禁止進入伺服器！\n原因: ${interaction.options.getString('原因')}`, ephemeral: true });
+        await interaction.followUp({ content: `使用者 ${interaction.options.getMember('使用者')} 已被禁止進入伺服器！\n原因: ${interaction.options.getString('原因')}` });
         interaction.guild.members.ban(user, {reason: interaction.options.getString('原因')}).catch(error => {
-                interaction.editReply({ content: `使用者 ${interaction.options.getMember('使用者')} 已被禁止進入伺服器！\n原因: ${interaction.options.getString('原因')}\n\n[錯誤] 無法禁止該使用者！`, ephemeral: true });
+                interaction.editReply({ content: `使用者 ${interaction.options.getMember('使用者')} 已被禁止進入伺服器！\n原因: ${interaction.options.getString('原因')}\n\n[錯誤] 無法禁止該使用者！` });
         });
     },
 };

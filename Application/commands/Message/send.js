@@ -52,10 +52,11 @@ module.exports = {
                 .setName('頁尾圖示網址')
                 .setDescription('嵌入式 - Footer Icon URL')),
     async execute(interaction) {
+        await interaction.deferReply({ ephemeral: true });
         const channel = interaction.options.getChannel('頻道');
         if (interaction.options.getString('訊息')) {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n');} else {var message = interaction.options.getString('訊息');}
-        if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n').replaceAll('＠everyone', '@everyone');} else {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n').replaceAll('@everyone', '＠everyone');}
-        await interaction.reply({ content: '訊息已被發送！', ephemeral: true })
+        if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {} else {var message = message.replaceAll('@everyone', '')}
+        await interaction.followUp({ content: '訊息已被發送！' })
         if (interaction.options.getBoolean('嵌入式') == true) {
             var Embed = new EmbedBuilder()
                 .setAuthor({ name: interaction.options.getString('頁首'), iconURL: interaction.options.getString('頁首圖示網址'), url: interaction.options.getString('頁首網址') })

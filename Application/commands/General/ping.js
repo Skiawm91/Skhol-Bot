@@ -6,7 +6,8 @@ module.exports = {
         .setName('ping')
         .setDescription('回傳應用程式的狀態'),
     async execute(interaction) {
-        const sent = await interaction.reply({ content: 'Pinging...', fetchReply: true });
+        await interaction.deferReply();
+        const sent = await interaction.followUp({ content: 'Pinging...', fetchReply: true });
         const Embed = new EmbedBuilder()
             .setTitle(':ping_pong: Pong!')
             .setDescription(`Websocket 延遲: ${interaction.client.ws.ping}ms\n應用程式延遲: ${sent.createdTimestamp - interaction.createdTimestamp}ms`);

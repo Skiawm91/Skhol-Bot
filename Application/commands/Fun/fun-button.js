@@ -21,6 +21,7 @@ module.exports = {
                 .setDescription('給這個按鈕一個互動訊息 (或GIF)')
                 .setRequired(true)),
     async execute(interaction) {
+        await interaction.deferReply({ ephemeral: true });
         const channel = interaction.options.getChannel('頻道');
         const message = interaction.options.getString('訊息').replaceAll('\\n', '\n');
         const Button = new ButtonBuilder()
@@ -29,12 +30,13 @@ module.exports = {
             .setStyle(ButtonStyle.Primary);
         const Row = new ActionRowBuilder()
             .addComponents(Button);
-        await interaction.reply({ content: '訊息已被發送！', ephemeral: true });
+        await interaction.followUp({ content: '訊息已被發送！' });
         const response = await channel.send({ components: [Row] });
         const collector = response.createMessageComponentCollector({ componentType: ComponentType.Button });
         collector.on('collect', async interaction => {
             if (interaction.customId == 'button') {
-                await interaction.reply({ content: message, ephemeral: true });
+                await interaction.deferReply({ ephemeral: true });
+                await interaction.followUp({ content: message });
             }
         });
     },
