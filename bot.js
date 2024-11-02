@@ -4,7 +4,7 @@ const axios = require('axios');
 const { activityText, Type, Status, developerID, logChannelID, clientID, guildID, appToken } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
-const ver = '0.3.5';
+const ver = '0.4.0';
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
