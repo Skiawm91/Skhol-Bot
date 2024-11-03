@@ -1,11 +1,15 @@
 // 這應該算是要求吧
-const { Util, SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { logChannelID, developerID } = require('../../../config.json');
 // 創建指令
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('testerror')
-        .setDescription('讓應用程式發送測試錯誤訊息至日誌頻道'),
+    data: {
+        name: "testerror",
+        type: 1,
+        description: "讓應用程式發送測試錯誤訊息至日誌頻道",
+        "integration_types": [0],
+        "contexts": [0],
+    },
     async execute(interaction) {
         if (interaction.user.id == developerID) {
             await interaction.deferReply({ ephemeral: true });

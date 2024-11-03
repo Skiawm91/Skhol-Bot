@@ -2,9 +2,13 @@
 const { SlashCommandBuilder ,EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ComponentType } = require('discord.js');
 // 創建指令
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('幫助使用者使用指令'),
+    data: {
+        name: "help",
+        description: "幫助使用者使用指令",
+        type: 1,
+        "integration_types": [0, 1],
+        "contexts": [0, 1, 2],
+    },
     async execute(interaction) {
         await interaction.deferReply();
         const Embed = new EmbedBuilder()
