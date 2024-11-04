@@ -1,11 +1,11 @@
 // 這應該算是要求吧
-const { SlashCommandBuilder ,EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ComponentType } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ComponentType } = require('discord.js');
 // 創建指令
 module.exports = {
     data: {
-        name: "help",
-        description: "幫助使用者使用指令",
-        type: 1,
+        "name": "help",
+        "type": 1,
+        "description": "幫助使用者使用指令",
         "integration_types": [0, 1],
         "contexts": [0, 1, 2],
     },

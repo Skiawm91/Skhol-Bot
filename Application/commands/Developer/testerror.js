@@ -4,9 +4,9 @@ const { logChannelID, developerID } = require('../../../config.json');
 // 創建指令
 module.exports = {
     data: {
-        name: "testerror",
-        type: 1,
-        description: "讓應用程式發送測試錯誤訊息至日誌頻道",
+        "name": "testerror",
+        "type": 1,
+        "description": "讓應用程式發送測試錯誤訊息至日誌頻道",
         "integration_types": [0],
         "contexts": [0],
     },

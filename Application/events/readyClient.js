@@ -9,7 +9,6 @@ module.exports = {
     execute(readyClient) {
         console.info('[資訊] 登入成功！');
         console.info(`[資訊] 登入的應用程式: ${readyClient.user.tag}`);
-
         if (Type == 'Playing') {var activityType = ActivityType.Playing;} else if (Type == 'Watching') {var activityType = ActivityType.Watching;} else if (Type == 'Listening') {var activityType = ActivityType.Listening;} else if (Type == 'Streaming') {var activityType = ActivityType.Streaming;} else {var activityType = ActivityType.Custom;}
         if (Status == 'Online') {var statusType = PresenceUpdateStatus.Online} else if (Status == 'DoNotDisturb' || Status == 'DND') {var statusType = PresenceUpdateStatus.DoNotDisturb} else if (Status == 'Idle') {var statusType = PresenceUpdateStatus.Idle} else if (Status == 'Invisible') {var statusType = PresenceUpdateStatus.Invisible}
         if (Status == 'Online' || Status == 'DoNotDisturb' || Status == 'DND' || Status == 'Idle' || Status == 'Invisible') {

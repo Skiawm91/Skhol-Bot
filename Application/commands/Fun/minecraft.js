@@ -1,36 +1,49 @@
 // 這應該算是要求吧
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const axios = require('axios');
 // 創建指令
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('minecraft')
-        .setDescription('取得 Minecraft 資訊')
-        .addSubcommand((subcommand) =>
-            subcommand
-                .setName('player')
-                .setDescription('取得 Minecraft 玩家資訊')
-                .addStringOption((option) =>
-                    option
-                        .setName('玩家')
-                        .setDescription('輸入玩家ID')
-                        .setRequired(true)),
-        )
-        .addSubcommand((subcommand) =>
-            subcommand
-                .setName('server')
-                .setDescription('取得 Minecraft 伺服器資訊')
-                .addStringOption((option) =>
-                    option
-                        .setName('伺服器')
-                        .setDescription('輸入伺服器IP')
-                        .setRequired(true))
-                .addBooleanOption((option) =>
-                    option
-                        .setName('基岩版')
-                        .setDescription('伺服器是否為基岩版')
-                        .setRequired(true)),
-        ),
+    data: {
+        "name": "minecraft",
+        "type": 1,
+        "description": "取得 Minecraft 資訊",
+        "options": [
+            {
+                "name": "player",
+                "type": ApplicationCommandOptionType.Subcommand,
+                "description": "取得 Minecraft 玩家資訊",
+                "options": [
+                    {
+                        "name": "玩家",
+                        "type": ApplicationCommandOptionType.String,
+                        "description": "輸入玩家ID",
+                        "required": true,
+                    },
+                ],
+            },
+            {
+                "name": "server",
+                "type": ApplicationCommandOptionType.Subcommand,
+                "description": "取得 Minecraft 伺服器資訊",
+                "options": [
+                    {
+                        "name": "伺服器",
+                        "type": ApplicationCommandOptionType.String,
+                        "description": "輸入伺服器Host",
+                        "required": true,
+                    },
+                    {
+                        "name": "基岩版",
+                        "type": ApplicationCommandOptionType.Boolean,
+                        "description": "伺服器是否為基岩版",
+                        "required": true,
+                    },
+                ],
+            },
+        ],
+        "integration_types": [0, 1],
+        "contexts": [0, 1, 2],
+    },
     async execute(interaction) {
         await interaction.deferReply();
         if (interaction.options.getSubcommand() == 'player') {

@@ -3,26 +3,26 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Application
 // 創建指令
 module.exports = {
     data: {
-        name: "fun-button",
-        description: "創建一個有趣的按鈕",
-        options: [
+        "name": "fun-button",
+        "description": "創建一個有趣的按鈕",
+        "options": [
             {
-                name: "頻道",
-                type: ApplicationCommandOptionType.Channel,
-                description: "指定頻道",
-                required: true,
+                "name": "頻道",
+                "type": ApplicationCommandOptionType.Channel,
+                "description": "指定頻道",
+                "required": true,
             },
             {
-                name: "按鈕名稱",
-                type: ApplicationCommandOptionType.String,
-                description: "給這個按鈕一個名稱",
-                required: true,
+                "name": "按鈕名稱",
+                "type": ApplicationCommandOptionType.String,
+                "description": "給這個按鈕一個名稱",
+                "required": true,
             },
             {
-                name: "訊息",
-                type: ApplicationCommandOptionType.String,
-                description: "給這個按鈕一個互動訊息",
-                required: true,
+                "name": "訊息",
+                "type": ApplicationCommandOptionType.String,
+                "description": "給這個按鈕一個互動訊息",
+                "required": true,
             },
         ],
         "integration_types": [0, 1],

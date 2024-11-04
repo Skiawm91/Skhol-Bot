@@ -3,22 +3,22 @@ const { ApplicationCommandOptionType } = require('discord.js');
 // 創建指令
 module.exports = {
     data: {
-        name: "ban",
-        description: "將使用者禁止進入伺服器",
-        options: [
+        "name": "ban",
+        "description": "將使用者禁止進入伺服器",
+        "options": [
             {
-                name: "使用者",
-                type: ApplicationCommandOptionType.User,
-                description: "指定使用者",
-                required: true,
+                "name": "使用者",
+                "type": ApplicationCommandOptionType.User,
+                "description": "指定使用者",
+                "required": true,
             },
             {
-                name: "原因",
-                type: ApplicationCommandOptionType.String,
-                description: "填寫原因",
+                "name" : "原因",
+                "type": ApplicationCommandOptionType.String,
+                "description": "填寫原因",
             },
         ],
-        default_member_permissions: '6',
+        "default_member_permissions": "6",
         "integration_types": [0],
         "contexts": [0],
     },

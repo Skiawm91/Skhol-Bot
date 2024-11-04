@@ -1,16 +1,19 @@
 // 這應該算是要求吧
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 // 創建指令
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('回傳應用程式的狀態'),
+    data: {
+        "name": "ping",
+        "type": 1,
+        "description": "回傳應用程式的狀態",
+        "integration_types": [0, 1],
+        "contexts": [0, 1, 2],
+    },
     async execute(interaction) {
-        await interaction.deferReply();
-        const sent = await interaction.followUp({ content: 'Pinging...', fetchReply: true });
+        const sent = await interaction.deferReply({ fetchReply: true });
         const Embed = new EmbedBuilder()
             .setTitle(':ping_pong: Pong!')
             .setDescription(`Websocket 延遲: ${interaction.client.ws.ping}ms\n應用程式延遲: ${sent.createdTimestamp - interaction.createdTimestamp}ms`);
-        await interaction.editReply({ embeds: [Embed] });
+        await interaction.followUp({ embeds: [Embed] });
     },
 };
