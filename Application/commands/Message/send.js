@@ -1,61 +1,78 @@
 // 這應該算是要求吧
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 // 創建指令
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('send')
-        .setDescription('傳送訊息至指定頻道')
-        .addChannelOption((option) =>
-            option
-                .setName('頻道')
-                .setDescription('指定頻道')
-                .setRequired(true))
-        .addBooleanOption((option) =>
-            option
-                .setName('嵌入式')
-                .setDescription('使用嵌入式訊息')
-                .setRequired(true))
-        .addStringOption((option) =>
-            option
-                .setName('訊息')
-                .setDescription('輸入你想發送的訊息'))
-        .addStringOption((option) =>
-            option
-                .setName('頁首')
-                .setDescription('嵌入式 - Author'))
-        .addStringOption((option) =>
-            option
-                .setName('頁首圖示網址')
-                .setDescription('嵌入式 - Author Icon URL'))
-        .addStringOption((option) =>
-            option
-                .setName('頁首網址')
-                .setDescription('嵌入式 - Author URL'))
-        .addStringOption((option) =>
-            option
-                .setName('標題')
-                .setDescription('嵌入式 - Title'))
-        .addStringOption((option) =>
-            option
-                .setName('標題網址')
-                .setDescription('嵌入式 - Title URL'))
-        .addStringOption((option) =>
-            option
-                .setName('內文')
-                .setDescription('嵌入式 - Description'))
-        .addStringOption((option) =>
-            option
-                .setName('頁尾')
-                .setDescription('嵌入式 - Footer'))
-        .addStringOption((option) =>
-            option
-                .setName('頁尾圖示網址')
-                .setDescription('嵌入式 - Footer Icon URL')),
+    data: {
+        "name": "send",
+        "type": 1,
+        "description": "傳送訊息至指定頻道",
+        "options": [
+            {
+                "name": "頻道",
+                "type": ApplicationCommandOptionType.Channel,
+                "description": "指定頻道",
+                "required": true,
+            },
+            {
+                "name": "嵌入式",
+                "type": ApplicationCommandOptionType.Boolean,
+                "description": "使用嵌入式訊息",
+                "required": true,
+            },
+            {
+                "name": "訊息",
+                "type": ApplicationCommandOptionType.String,
+                "description": "輸入你想發送的訊息",
+            },
+            {
+                "name": "頁首",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Author",
+            },
+            {
+                "name": "頁首圖示網址",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Author Icon URL",
+            },
+            {
+                "name": "頁首網址",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Author URL",
+            },
+            {
+                "name": "標題",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Title",
+            },
+            {
+                "name": "標題網址",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Title URL",
+            },
+            {
+                "name": "內文",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Description",
+            },
+            {
+                "name": "頁尾",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Footer",
+            },
+            {
+                "name": "頁尾圖示網址",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Footer Icon URL",
+            },
+        ],
+        "integration_types": [0, 1],
+        "contexts": [0, 1, 2],
+    },
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
         const channel = interaction.options.getChannel('頻道');
         if (interaction.options.getString('訊息')) {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n');} else {var message = interaction.options.getString('訊息');}
-        if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {} else {var message = message.replaceAll('@everyone', '')}
+        if (interaction.channel.type == 1 || interaction.channel.type == 3) {} else {if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {var message = message.replaceAll('@everyone', '')}}
         await interaction.followUp({ content: '訊息已被發送！' })
         if (interaction.options.getBoolean('嵌入式') == true) {
             var Embed = new EmbedBuilder()
@@ -65,18 +82,36 @@ module.exports = {
                 .setDescription(interaction.options.getString('內文').replaceAll('\\n', '\n'))
                 .setFooter({ text: interaction.options.getString('頁尾'), iconURL: interaction.options.getString('頁尾圖示網址') });
             if (message) {
-                channel.send({ content: message, embeds: [Embed] }).catch(error => {
+                if (interaction.channel.type == 1 || interaction.channel.type == 3) {
+                    interaction.followUp({ content: message, embeds: [Embed] }).catch(error => {
+                        interaction.editReply('未成功發送訊息！');
+                    });
+                } else {
+                    channel.send({ content: message, embeds: [Embed] }).catch(error => {
+                        interaction.editReply('未成功發送訊息！');
+                    });
+                }
+            } else {
+                if (interaction.channel.type == 1 || interaction.channel.type == 3) {
+                    interaction.followUp({ embeds: [Embed] }).catch(error => {
+                        interaction.editReply('未成功發送訊息！');
+                    });
+                } else {
+                    channel.send({ embeds: [Embed] }).catch(error => {
+                        interaction.editReply('未成功發送訊息！');
+                    });
+                }
+            }
+        } else {
+            if (interaction.channel.type == 1 || interaction.channel.type == 3) {
+                interaction.followUp({ content: message }).catch(error => {
                     interaction.editReply('未成功發送訊息！');
                 });
             } else {
-                channel.send({ embeds: [Embed] }).catch(error => {
+                channel.send({ content: message }).catch(error => {
                     interaction.editReply('未成功發送訊息！');
                 });
             }
-        } else {
-            channel.send(message).catch(error => {
-                interaction.editReply('未成功發送訊息！')
-            });
         }
     },
 };

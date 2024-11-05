@@ -1,6 +1,6 @@
 // 這應該算是要求吧
 const { Events, EmbedBuilder, ActivityType, PresenceUpdateStatus, Routes, ApplicationCommandType } = require('discord.js');
-const { clientID, Type, activityText, Status, logChannelID } = require('../../config.json');
+const { clientID, Type, activityText, Status, logChannelID } = require('../../config');
 const ver = require('../../bot');
 // 客戶端登入資訊 (主控台)
 module.exports = {

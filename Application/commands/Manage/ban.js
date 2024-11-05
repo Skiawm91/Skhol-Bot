@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { ApplicationCommandOptionType } = require('discord.js');
+const { PermissionFlagsBits, ApplicationCommandOptionType } = require('discord.js');
 // 創建指令
 module.exports = {
     data: {
@@ -18,7 +18,7 @@ module.exports = {
                 "description": "填寫原因",
             },
         ],
-        "default_member_permissions": "6",
+        "default_member_permissions": String(PermissionFlagsBits.BanMembers),
         "integration_types": [0],
         "contexts": [0],
     },

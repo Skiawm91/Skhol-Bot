@@ -1,6 +1,6 @@
 // 這應該算是要求吧
 const { EmbedBuilder } = require('discord.js');
-const { logChannelID, developerID } = require('../../../config.json');
+const { logChannelID, developerID } = require('../../../config');
 // 創建指令
 module.exports = {
     data: {
