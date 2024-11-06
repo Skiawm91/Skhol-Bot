@@ -12,3 +12,5 @@ Release: `0.3.x`**
 3. **執行 `node ./bot.js` 或 `node .` 來執行應用程式**
 ## 開發者
 * **Skiawm91**
+* **All Discord Bot Developers**
+* **OpenAI ChatGPT**
