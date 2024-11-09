@@ -13,9 +13,11 @@ const guildID = "your-id-here"; // 伺服器ID (請填你自己的)
 
 // 開發者
 // Log: 預設為 true。
+// testerror: 是否啟用 testerror 指令，預設為 false。
 // developerID: 必填選項，電腦客戶端左下角點開有個 "複製ID"。 
 // logChannelID: 如果 "Log" 值為 false，免填，否則必填。 
 const Log = true;
+const testerror = false;
 const developerID = "your-id-here";
 const logChannelID = "your-id-here";
 
@@ -46,12 +48,13 @@ module.exports = {
     appToken, // 權杖
     clientID, // 應用程式ID
     guildID, // 伺服器ID
+    testerror, // testerror 指令是否啟用
+    developerID, // 開發者ID
+    logChannelID, // 日誌頻道ID
     Custom, // 自訂義
     customPresence, // 自訂義狀態代碼
     activityText, // 狀態文字
     Type, // 狀態類別
     Status, // 狀態
-    updateTime, // 狀態更新時間 (秒)
-    developerID, // 開發者ID
-    logChannelID // 日誌頻道ID
+    updateTime // 狀態更新時間 (秒)
 }

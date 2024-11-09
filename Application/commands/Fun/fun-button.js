@@ -39,7 +39,7 @@ module.exports = {
         const Row = new ActionRowBuilder()
             .addComponents(Button);
         await interaction.followUp({ content: '訊息已被發送！' });
-        if (interaction.channel.type == 1) { var response = await interaction.followUp({ components: [Row] }); } else { var response = await channel.send({ components: [Row] }); }
+        if (interaction.channel.type == 1 || interaction.channel.type == 3) { var response = await interaction.followUp({ components: [Row] }); } else { var response = await channel.send({ components: [Row] }); }
         const collector = response.createMessageComponentCollector({ componentType: ComponentType.Button });
         collector.on('collect', async interaction => {
             if (interaction.customId == 'button') {

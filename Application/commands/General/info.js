@@ -53,7 +53,7 @@ module.exports = {
                 await interaction.followUp({ embeds: [Embed] });
             }
         } else if (interaction.options.getSubcommand() == 'server') {
-            if (interaction.channel.type == 1) {
+            if (interaction.channel.type == 1 || interaction.channel.type == 3) {
                 await interaction.deferReply({ ephemeral: true });
                 await interaction.followUp("此處不能執行這條指令！");
                 return;

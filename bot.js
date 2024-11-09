@@ -10,32 +10,6 @@ console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
 const client = new Client({ intents: [GatewayIntentBits.Guilds], partials: [Partials.Channel] });
 module.exports= { ver, client }
-// 錯誤處理 (process)
-process.on('unhandledRejection', async (error) => {
-    console.error('[錯誤] 發生了錯誤！', error);
-    const logChannel = client.channels.cache.get(logChannelID);
-    const stackLines = error.stack.split('\n');
-    const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
-    const logEmbed = new EmbedBuilder()
-        .setColor('#ff0000')
-        .setTitle(':x: 錯誤內容')
-        .setDescription(`\`\`\`${shortError}\`\`\``)
-        .setTimestamp()
-    logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
-}).on('uncaughtException', async (error) => {
-    console.error('[錯誤] 發生了錯誤！\n', error);
-    const logChannel = client.channels.cache.get(logChannelID);
-    const stackLines = error.stack.split('\n');
-    const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
-    const logEmbed = new EmbedBuilder()
-        .setColor('#ff0000')
-        .setTitle(':x: 錯誤內容')
-        .setDescription(`\`\`\`${shortError}\`\`\``)
-        .setTimestamp()
-    logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
-}).on('exit', async (code) => {
-    console.info('[資訊] 應用程式已關閉！');
-})
 // 註冊指令
 const commands = [];
 const foldersPath = path.join(__dirname, 'Application/commands');
