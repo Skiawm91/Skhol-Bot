@@ -1,6 +1,7 @@
 // 前言
 // 不算代替掉原設定檔，這只是因為我想添加註解，僅此。
 // 不過舊的也不能用了XD。
+// 可自定義任何代碼！例如添加新的const。
 
 // 應用程式
 // 從 https://discord.com/developers/applications 取得。
@@ -18,14 +19,39 @@ const Log = true;
 const developerID = "your-id-here";
 const logChannelID = "your-id-here";
 
+// 自定義
+// Presence: 在 activityText 之前加入一些自定義代碼
+const Custom = {
+    "Presence": false,
+    "ActivityText_Var": false, // 如果 activityText 改為 var 來賦值的話
+}
+
 // 狀態訊息
-// activityText: 可以是任何文字。
+// customPresence: activityText 如要在內，使用 globalThis.activityText = ""。
+// activityText: 可以是任何文字，必要時 const 可改為 var，Custom.ActivityText_Var 需為 true。
 // Type: 可以是 "Playing", "Listening", "Watching", "Streaming", "Custom"。
 // Status: 可以是 "Online", "DoNotDisturb", "DND", "Idle", "Invisible"。
 // 以下三項全空白也行。
+// updateTime: 設定狀態更新的秒數。
+const customPresence = () => {
+    // 狀態自定義代碼 (Custom.Presence 需為 true)
+}
 const activityText = "Skhol Bot by Skiawm91";
 const Type = "Watching";
 const Status = "DND";
+const updateTime = "60";
 
 // 將所有設定內容導出
-module.exports = [ appToken, clientID, guildID, activityText, Type, Status, developerID, logChannelID ];
+module.exports = { 
+    appToken, // 權杖
+    clientID, // 應用程式ID
+    guildID, // 伺服器ID
+    Custom, // 自訂義
+    customPresence, // 自訂義狀態代碼
+    activityText, // 狀態文字
+    Type, // 狀態類別
+    Status, // 狀態
+    updateTime, // 狀態更新時間 (秒)
+    developerID, // 開發者ID
+    logChannelID // 日誌頻道ID
+}

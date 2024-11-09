@@ -9,7 +9,7 @@ const ver = '0.4.0';
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
 const client = new Client({ intents: [GatewayIntentBits.Guilds], partials: [Partials.Channel] });
-module.exports= { ver, client };
+module.exports= { ver, client }
 // 錯誤處理 (process)
 process.on('unhandledRejection', async (error) => {
     console.error('[錯誤] 發生了錯誤！', error);
