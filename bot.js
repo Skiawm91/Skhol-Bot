@@ -1,7 +1,13 @@
 // 這應該算是要求吧
 const { Client, Collection, GatewayIntentBits, REST, Routes, EmbedBuilder, Partials } = require('discord.js');
-const axios = require('axios');
-const { developerID, logChannelID, clientID, appToken } = require('./config');
+try {
+    require('./config');
+} catch (error) {
+    console.error("[錯誤] 未找到檔案！");
+    console.warn("[警告] config.example.js 需改為 config.js！");
+    process.exit(1);
+}
+const { clientID, appToken } = require('./config');
 const fs = require('node:fs');
 const path = require('node:path');
 const ver = '0.4.0';

@@ -1,6 +1,6 @@
 // 這應該算是要求吧
 const { EmbedBuilder } = require('discord.js');
-const { testerror, developerID, logChannelID } = require('../../../config');
+const { Log, testerror, developerID, logChannelID } = require('../../../config');
 if (!testerror) {
     return;
 }
@@ -21,14 +21,16 @@ module.exports = {
                 throw new Error('這是一條測試錯誤的訊息');
             } catch(error) {
                 console.error('[錯誤] 發生了錯誤！\n', error);
-                const stackLines = error.stack.split('\n');
-                const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
-                const logEmbed = new EmbedBuilder()
-                .setColor('#ff0000')
-                .setTitle(':x: 錯誤內容')
-                .setDescription(`\`\`\`${shortError}\`\`\``)
-                .setTimestamp()
-                logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
+                if (Log){
+                    const stackLines = error.stack.split('\n');
+                    const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
+                    const logEmbed = new EmbedBuilder()
+                    .setColor('#ff0000')
+                    .setTitle(':x: 錯誤內容')
+                    .setDescription(`\`\`\`${shortError}\`\`\``)
+                    .setTimestamp()
+                    logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
+                }
             }
             await interaction.followUp({ content: '測試錯誤訊息已發送！'});
         } else {
