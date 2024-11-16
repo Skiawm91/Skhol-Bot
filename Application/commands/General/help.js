@@ -44,34 +44,40 @@ module.exports = {
             .setComponents(Select);
         const response = await interaction.followUp({ embeds: [Embed], components: [Row] });
         const collector = response.createMessageComponentCollector({ componentType: ComponentType.StringSelect });
-        collector.on('collect', async interaction => {
-            await interaction.deferReply({ ephemeral: true });
-            const selection = interaction.values[0];
-            if (selection == 'Developer') {
-                const Embed = new EmbedBuilder()
-                .setTitle('指令列表 - 開發者指令')
-                .setDescription('testerror - 讓應用程式發送測試錯誤訊息至日誌頻道');
-                await interaction.followUp({ embeds: [Embed] });
-            } else if (selection == 'Fun') {
-                const Embed = new EmbedBuilder()
-                    .setTitle('指令列表 - 有趣的指令')
-                    .setDescription('fun-button - 創建一個有趣的按鈕\nminecraft player - 取得 Minecraft 玩家資訊\nminecraft server - 取得 Minecraft 伺服器資訊');
-                await interaction.followUp({ embeds: [Embed] });
-            } else if (selection == 'General') {
-                const Embed = new EmbedBuilder()
-                    .setTitle('指令列表 - 一般指令')
-                    .setDescription('help - 幫助使用者使用指令\nping - 回傳應用程式的狀態\ninfo user - 取得使用者的資訊\ninfo server - 取得伺服器的資訊');
-                await interaction.followUp({ embeds: [Embed] });
-            } else if (selection == 'Manage') {
-                const Embed = new EmbedBuilder()
-                    .setTitle('指令列表 - 管理指令')
-                    .setDescription('kick - 將成員踢出伺服器\nban - 將使用者禁止進入伺服器\ntimeout - 將使用者禁言');
-                await interaction.followUp({ embeds: [Embed] });
-            } else if (selection == 'Message'){
-                const Embed = new EmbedBuilder()
-                    .setTitle('指令列表 - 訊息指令')
-                    .setDescription('send - 傳送訊息至指定頻道');
-                await interaction.followUp({ embeds: [Embed] });
+        collector.on('collect', async i => {
+            await i.deferReply({ ephemeral: true });
+            const selection = i.values[0];
+            switch (selection) {
+                case 'Developer':
+                    const devEmbed = new EmbedBuilder()
+                        .setTitle('指令列表 - 開發者指令')
+                        .setDescription('testerror - 讓應用程式發送測試錯誤訊息至日誌頻道');
+                    await i.followUp({ embeds: [devEmbed] });
+                    break;
+                case 'Fun':
+                    const funEmbed = new EmbedBuilder()
+                        .setTitle('指令列表 - 有趣的指令')
+                        .setDescription('fun-button - 創建一個有趣的按鈕\nminecraft player - 取得 Minecraft 玩家資訊\nminecraft server - 取得 Minecraft 伺服器資訊');
+                    await i.followUp({ embeds: [funEmbed] });
+                    break;
+                case 'General':
+                    const generalEmbed = new EmbedBuilder()
+                        .setTitle('指令列表 - 一般指令')
+                        .setDescription('help - 幫助使用者使用指令\nping - 回傳應用程式的狀態\ninfo user - 取得使用者的資訊\ninfo server - 取得伺服器的資訊');
+                    await i.followUp({ embeds: [generalEmbed] });
+                    break;
+                case 'Manage':
+                    const manageEmbed = new EmbedBuilder()
+                        .setTitle('指令列表 - 管理指令')
+                        .setDescription('kick - 將成員踢出伺服器\nban - 將使用者禁止進入伺服器\ntimeout - 將使用者禁言');
+                    await i.followUp({ embeds: [manageEmbed] });
+                    break;
+                case 'Message':
+                    const msgEmbed = new EmbedBuilder()
+                        .setTitle('指令列表 - 訊息指令')
+                        .setDescription('send - 傳送訊息至指定頻道');
+                    await i.followUp({ embeds: [msgEmbed] });
+                    break;
             }
         })
     },
