@@ -1,20 +1,12 @@
 // 這應該算是要求吧
 const { Events, EmbedBuilder, ActivityType, PresenceUpdateStatus, version } = require('discord.js');
 const { ver } = require('../../../bot');
-const { clientID, Log, Custom, customPresence, Status, updateTime, logChannelID } = require('../../../config');
+const { clientID, Log, Custom, customPresence, activityText, Type, Status, updateTime, logChannelID } = require('../../../config');
 // 額外要求
 if (Custom.Presence.ActivityText_Var) {
-    var { activityText } = require('../../../config');
-    globalThis.activityText = activityText;
-} else {
-    const { activityText } = require('../../../config');
     globalThis.activityText = activityText;
 }
 if (Custom.Presence.Type_Var) {
-    var { Type } = require('../../../config');
-    globalThis.Type = Type;
-} else {
-    const { Type } = require('../../../config');
     globalThis.Type = Type;
 }
 // 客戶端登入資訊
