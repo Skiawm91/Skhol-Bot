@@ -17,7 +17,9 @@ const guildID = "your-id-here"; // 伺服器ID (請填你自己的)
 // developerID: 必填選項，電腦客戶端左下角點開有個 "複製ID"。 
 // logChannelID: 如果 "Log" 值為 false，免填，否則必填。 
 const Log = true;
-const testerror = false;
+const developerCommands = {
+    "testerror": false,
+}
 const developerID = "your-id-here";
 const logChannelID = "your-id-here";
 
@@ -55,7 +57,7 @@ module.exports = {
     clientID, // 應用程式ID
     guildID, // 伺服器ID
     Log, // 是否啟用日誌
-    testerror, // testerror 指令是否啟用
+    developerCommands, // testerror 指令是否啟用
     developerID, // 開發者ID
     logChannelID, // 日誌頻道ID
     Custom, // 自訂義

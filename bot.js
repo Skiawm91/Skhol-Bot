@@ -18,7 +18,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds], partials: [Part
 module.exports= { ver, client }
 // 註冊指令
 const commands = [];
-const foldersPath = path.join(__dirname, 'Application/commands');
+const foldersPath = path.join(__dirname, 'Application/Commands');
 const commandFolders = fs.readdirSync(foldersPath);
 for (const folder of commandFolders) {
     const commandsPath = path.join(foldersPath, folder);
@@ -48,6 +48,7 @@ const rest = new REST({ version: '10' }).setToken(appToken);
 })();
 // 執行指令
 client.commands = new Collection();
+client.selectMenus = new Collection();
 for (const folder of commandFolders) {
     const commandsPath = path.join(foldersPath, folder);
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -61,8 +62,16 @@ for (const folder of commandFolders) {
         }
     }
 }
+// 載入選單處理檔案
+const selectMenuPath = path.join(__dirname, 'Application/SelectMenus');
+const selectMenuFiles = fs.readdirSync(selectMenuPath).filter(file => file.endsWith('.js'));
+for (const file of selectMenuFiles) {
+    const filePath = path.join(selectMenuPath, file);
+    const selectMenu = require(filePath);
+    client.selectMenus.set(selectMenu.data.custom_id, selectMenu);
+}
 // 載入事件處理檔案
-const eventsPath = path.join(__dirname, 'Application/events');
+const eventsPath = path.join(__dirname, 'Application/Events/Event');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
     const filePath = path.join(eventsPath, file);
@@ -71,6 +80,18 @@ for (const file of eventFiles) {
         client.once(event.name, (...args) => event.execute(...args));
     } else {
         client.on(event.name, (...args) => event.execute(...args));
+    }
+}
+// 載入錯誤處理檔案
+const errorsPath = path.join(__dirname, 'Application/Events/Error');
+const errorFiles = fs.readdirSync(errorsPath).filter(file => file.endsWith('.js'));
+for (const file of errorFiles) {
+    const filePath = path.join(errorsPath, file);
+    const error = require(filePath);
+    if (error.process) {
+        process.on(error.name, (...args) => error.execute(...args));
+    } else {
+        client.on(error.name, (...args) => error.execute(...args));
     }
 }
 // 客戶端登入 Token

@@ -1,10 +1,11 @@
 // 這應該算是要求吧
-const { Events, EmbedBuilder } = require('discord.js');
-const { client } = require('../../bot');
-const { developerID, logChannelID } = require('../../config');
+const { EmbedBuilder } = require('discord.js');
+const { client } = require('../../../bot');
+const { developerID, logChannelID } = require('../../../config');
 // 錯誤處理
 module.exports = {
-    name: Events.Error,
+    name: 'uncaughtException',
+    process: true,
     async execute(error){
         console.error('[錯誤] 發生了錯誤！', error);
         const logChannel = client.channels.cache.get(logChannelID);
