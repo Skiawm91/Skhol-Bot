@@ -46,9 +46,11 @@ const rest = new REST({ version: '10' }).setToken(appToken);
         console.error(error);
     }
 })();
-// 執行指令
+// Collection
 client.commands = new Collection();
+client.buttons = new Collection();
 client.selectMenus = new Collection();
+// 載入指令處理檔案
 for (const folder of commandFolders) {
     const commandsPath = path.join(foldersPath, folder);
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -61,6 +63,14 @@ for (const folder of commandFolders) {
             console.warn(`[警告] 位於 ${filePath} 中的指令缺少 "data" 或 "execute" 項！`);
         }
     }
+}
+// 載入按鈕處理檔案
+const ButtonPath = path.join(__dirname, 'Application/Buttons');
+const ButtonFiles = fs.readdirSync(ButtonPath).filter(file => file.endsWith('.js'));
+for (const file of ButtonFiles) {
+    const filePath = path.join(ButtonPath, file);
+    const Button = require(filePath);
+    client.buttons.set(Button.data.custom_id, Button);
 }
 // 載入選單處理檔案
 const selectMenuPath = path.join(__dirname, 'Application/SelectMenus');

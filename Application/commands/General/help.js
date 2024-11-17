@@ -59,8 +59,7 @@ module.exports = {
             "type": ComponentType.ActionRow,
             "components": [Select],
         };
-        const response = await interaction.followUp({ embeds: [Embed], components: [Row] });
-        const collector = response.createMessageComponentCollector({ componentType: ComponentType.StringSelect });
+        await interaction.followUp({ embeds: [Embed], components: [Row] });
     },
 
 };

@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { ApplicationCommandOptionType } = require('discord.js');
 const axios = require('axios');
 // 創建指令
 module.exports = {
@@ -54,10 +54,16 @@ module.exports = {
                 const uuid = data.id;
                 const skin = `https://crafatar.com/skins/${uuid}.png`;
                 const avatar = `https://cravatar.eu/avatar/${uuid}/128.png`;
-                const Embed = new EmbedBuilder()
-                    .setAuthor({ name: `玩家 ${id} 的資訊` })
-                    .setThumbnail(avatar)
-                    .setDescription(`UUID: ${uuid}\nSkin: [下載](${skin})`);
+                const Embed = {
+                    "author": {
+                        "name": `玩家 ${id} 的資訊`,
+                    },
+                    "thumbnail": {
+                        "url": avatar,
+                    },
+                    "description": `UUID: ${uuid}\nSkin: [下載](${skin})`,
+                    "color": Math.floor(Math.random() * 0xFFFFFF),
+                }
                 await interaction.followUp({ embeds: [Embed] });
             } else {
                 await interaction.followUp({ content: '玩家ID在3~16個字元之間！', ephemeral: true });
@@ -80,16 +86,20 @@ module.exports = {
                 const motd = data.motd.clean;
                 const onlineplayer = data.players.online;
                 const maxplayer = data.players.max;
-                const Embed = new EmbedBuilder()
-                    .setAuthor({ name: `伺服器 ${host} 的資訊` })
-                    .addFields(
+                const Embed = {
+                    "author": {
+                        "name": `伺服器 ${host} 的資訊`,
+                    },
+                    "fields": [
                         { name: '**是否在線**', value: `${online}`, inline: true },
                         { name: '**IP**', value: `${address}`, inline: true },
                         { name: '**Port**', value: `${port}`, inline: true },
                         { name: '**版本**', value: `${version}`, inline: true },
                         { name: '**玩家**', value: `${onlineplayer}/${maxplayer}`, inline: true },
-                        {name: '**描述**', value: `${motd}`, inline: false },
-                    );
+                        { name: '**描述**', value: `${motd}`, inline: false },
+                    ],
+                    "color": Math.floor(Math.random() * 0xFFFFFF),
+                };
                 await interaction.followUp({ embeds: [Embed] });
             }
         }

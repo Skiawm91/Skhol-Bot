@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { EmbedBuilder } = require('discord.js');
+// No Requires
 // 創建指令
 module.exports = {
     data: {
@@ -11,9 +11,11 @@ module.exports = {
     },
     async execute(interaction) {
         const sent = await interaction.deferReply({ fetchReply: true });
-        const Embed = new EmbedBuilder()
-            .setTitle(':ping_pong: Pong!')
-            .setDescription(`Websocket 延遲: ${interaction.client.ws.ping}ms\n應用程式延遲: ${sent.createdTimestamp - interaction.createdTimestamp}ms`);
+        const Embed = {
+            "title": ":ping_pong: Pong!",
+            "description": `Websocket 延遲: ${interaction.client.ws.ping}ms\n應用程式延遲: ${sent.createdTimestamp - interaction.createdTimestamp}ms`,
+            "color": Math.floor(Math.random() * 0xFFFFFF),
+        }
         await interaction.followUp({ embeds: [Embed] });
     },
 };

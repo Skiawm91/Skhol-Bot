@@ -21,7 +21,21 @@ module.exports = {
                 }
             }
         } else if (interaction.isButton()) {
-            // 按鈕交互
+            const button = interaction.client.buttons.get(interaction.customId);
+            if (!button) {
+                console.error(`[錯誤] 沒有與 ${interaction.customId} 相符的按鈕！`);
+                return;
+            }
+            try {
+                await button.execute(interaction);
+            } catch (error) {
+                console.error(error);
+                if (interaction.replied || interaction.deferred) {
+                    await interaction.followUp({ content: '執行這個按鈕時出現錯誤！', ephemeral: true});
+                } else {
+                    await interaction.reply({ content: '執行這個按鈕時出現錯誤！', ephemeral: true });
+                }
+            }
         } else if (interaction.isStringSelectMenu()) {
             const selectMenu = interaction.client.selectMenus.get(interaction.customId);
             if (!selectMenu) {

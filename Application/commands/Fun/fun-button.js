@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, ApplicationCommandOptionType } = require('discord.js');
+const { ButtonStyle, ComponentType, ApplicationCommandOptionType } = require('discord.js');
 // 創建指令
 module.exports = {
     data: {
@@ -32,17 +32,21 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
         const channel = interaction.options.getChannel("頻道");
         const message = interaction.options.getString('訊息').replaceAll('\\n', '\n');
-        const Button = new ButtonBuilder()
-            .setCustomId('button')
-            .setLabel(interaction.options.getString('按鈕名稱'))
-            .setStyle(ButtonStyle.Primary);
-        const Row = new ActionRowBuilder()
-            .addComponents(Button);
+        const Button = {
+            "type": ComponentType.Button,
+            "custom_id": "fun-button_reply",
+            "label": interaction.options.getString("按鈕名稱"),
+            "style": ButtonStyle.Primary,
+        };
+        const Row = {
+            "type": ComponentType.ActionRow,
+            "components": [Button],
+        };
         await interaction.followUp({ content: '訊息已被發送！' });
         if (interaction.channel.type == 1 || interaction.channel.type == 3) { var response = await interaction.followUp({ components: [Row] }); } else { var response = await channel.send({ components: [Row] }); }
         const collector = response.createMessageComponentCollector({ componentType: ComponentType.Button });
         collector.on('collect', async interaction => {
-            if (interaction.customId == 'button') {
+            if (interaction.customId == 'fun-button_reply') {
                 await interaction.deferReply({ ephemeral: true });
                 await interaction.followUp({ content: message });
             }
