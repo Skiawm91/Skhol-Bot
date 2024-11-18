@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
+const { ApplicationCommandOptionType } = require('discord.js');
 // 創建指令
 module.exports = {
     data: {
@@ -32,24 +32,50 @@ module.exports = {
         if (interaction.options.getSubcommand() == 'user') {
             await interaction.deferReply();
             if (interaction.options.getUser('使用者')) {
-                const Embed = new EmbedBuilder()
-                    .setThumbnail(interaction.options.getUser('使用者').displayAvatarURL({ size: 512, dynamic: true }))
-                    .setTitle(':white_check_mark: 使用者資訊')
-                    .addFields(
-                        {name: '**顯示名稱**', value: `${interaction.options.getUser('使用者').displayName}`, inline: false },
-                        {name: '**使用者名稱**', value: `${interaction.options.getUser('使用者').username} (${interaction.options.getUser('使用者').id})`, inline: false },
-                        {name: '**帳號創建日期**', value: `${interaction.options.getUser('使用者').createdAt}`, inline: false },
-                    );
+                const Embed = {
+                    "thumbnail": {
+                        "url": interaction.options.getUser('使用者').displayAvatarURL({ size: 512, dynamic: true }),
+                    },
+                    "title": ":white_check_mark: 使用者資訊",
+                    "fields": [
+                        {
+                            "name": "**顯示名稱**",
+                            "value": `${interaction.options.getUser('使用者').displayName}`
+                        },
+                        {
+                            "name": "**使用者名稱**",
+                            "value": `${interaction.options.getUser('使用者').username} (${interaction.options.getUser('使用者').id})`
+                        },
+                        {
+                            "name": "**帳號創建日期**",
+                            "value": `${interaction.options.getUser('使用者').createdAt}`
+                        },
+                    ],
+                    "color": Math.floor(Math.random() * 0xFFFFFF),
+                };
                 await interaction.followUp({ embeds: [Embed] })
             } else {
-                const Embed = new EmbedBuilder()
-                    .setThumbnail(interaction.user.displayAvatarURL({ size: 512, dynamic: true }))
-                    .setTitle(':white_check_mark: 使用者資訊')
-                    .addFields(
-                        {name: '**顯示名稱**', value: `${interaction.user.displayName}`, inline: false },
-                        {name: '**使用者名稱**', value: `${interaction.user.username} (${interaction.user.id})`, inline: false },
-                        {name: '**帳號創建日期**', value: `${interaction.user.createdAt}`, inline: false },
-                    );
+                const Embed = {
+                    "thumbnail": {
+                        "url": interaction.user.displayAvatarURL({ size: 512, dynamic: true }),
+                    },
+                    "title": ":white_check_mark: 使用者資訊",
+                    "fields": [
+                        {
+                            "name": "**顯示名稱**",
+                            "value": `${interaction.user.displayName}`
+                        },
+                        {
+                            "name": "**使用者名稱**",
+                            "value": `${interaction.user.username} (${interaction.user.id})`
+                        },
+                        {
+                            "name": "**帳號創建日期**",
+                            "value": `${interaction.user.createdAt}`
+                        },
+                    ],
+                    "color": Math.floor(Math.random() * 0xFFFFFF),
+                };
                 await interaction.followUp({ embeds: [Embed] });
             }
         } else if (interaction.options.getSubcommand() == 'server') {
@@ -59,10 +85,13 @@ module.exports = {
                 return;
             }
             await interaction.deferReply();
-            const Embed = new EmbedBuilder()
-            .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
-            .setTitle('伺服器資訊')
-            .setDescription(`伺服器：${interaction.guild.name} (${interaction.guild.id})\n創建日期：${interaction.guild.createdAt}\n伺服器人數: ${interaction.guild.memberCount}\n擁有者: <@${interaction.guild.ownerId}>`);
+            const Embed = {
+                "thumbnail": {
+                    "url": interaction.guild.iconURL({ dynamic: true }),
+                },
+                "title": "伺服器資訊",
+                "description": `伺服器：${interaction.guild.name} (${interaction.guild.id})\n創建日期：${interaction.guild.createdAt}\n伺服器人數: ${interaction.guild.memberCount}\n擁有者: <@${interaction.guild.ownerId}>`,
+            };
             await interaction.followUp({ embeds: [Embed] });
         }
     },

@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
+const { PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 // 創建指令
 module.exports = {
     data: {
@@ -75,12 +75,21 @@ module.exports = {
         if (interaction.channel.type == 1 || interaction.channel.type == 3) {} else {if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {var message = message.replaceAll('@everyone', '')}}
         await interaction.followUp({ content: '訊息已被發送！' })
         if (interaction.options.getBoolean('嵌入式') == true) {
-            var Embed = new EmbedBuilder()
-                .setAuthor({ name: interaction.options.getString('頁首'), iconURL: interaction.options.getString('頁首圖示網址'), url: interaction.options.getString('頁首網址') })
-                .setTitle(interaction.options.getString('標題'))
-                .setURL(interaction.options.getString('標題網址'))
-                .setDescription(interaction.options.getString('內文').replaceAll('\\n', '\n'))
-                .setFooter({ text: interaction.options.getString('頁尾'), iconURL: interaction.options.getString('頁尾圖示網址') });
+            var Embed = {
+                "author": {
+                    "name": interaction.options.getString('頁首'),
+                    "icon_url": interaction.options.getString('頁首圖示網址'),
+                    "url": interaction.options.getString('頁首網址'),
+                },
+                "title": interaction.options.getString('標題'),
+                "url": interaction.options.getString('標題網址'),
+                "description": interaction.options.getString('內文').replaceAll('\\n', '\n'),
+                "footer": {
+                    "text": interaction.options.getString('頁尾'),
+                    "icon_url": interaction.options.getString('頁尾圖示網址'),
+                },
+                "color": Math.floor(Math.random() * 0xFFFFFF),
+            };
             if (message) {
                 if (interaction.channel.type == 1 || interaction.channel.type == 3) {
                     interaction.followUp({ content: message, embeds: [Embed] }).catch(error => {

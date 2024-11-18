@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { Events, EmbedBuilder, ActivityType, PresenceUpdateStatus, version } = require('discord.js');
+const { Events, ActivityType, PresenceUpdateStatus, version } = require('discord.js');
 const { ver } = require('../../../bot');
 const { clientID, Log, Custom, customPresence, activityText, Type, Status, updateTime, logChannelID } = require('../../../config');
 // 額外要求
@@ -38,36 +38,96 @@ module.exports = {
         if (Log){
             const starttime = Math.floor(Date.now() / 1000);
             const timestamp = Math.floor(Date.now() / 1000);
-            const Embed = new EmbedBuilder()
-                .setAuthor({ name: '✅ 應用程式資訊' })
-                .setDescription(`啟動時間： <t:${starttime}:R>`)
-                .addFields(
-                    { name: '**應用程式名稱**', value: `${ready.user.tag}   `, inline: true },
-                    { name: '**版本**', value: `${ver}   `, inline: true },
-                    { name: '**開發者**', value: 'Skiawm91', inline: true },
-                    { name: '**discord.js 版本**', value: `${version}`, inline: true },
-                    { name: '**Github**', value: `[連結](https://github.com/Skiawm91/Skhol-Bot)`, inline: true },
-                    { name: '**上次資訊更新時間**', value: `<t:${timestamp}:R> (<t:${timestamp}:f>)` },
-                )
-                .setFooter({ text: 'Skhol Bot', iconURL: ready.user.displayAvatarURL(clientID) })
-                .setTimestamp();
+            const Embed = {
+                "author": {
+                    "name": "✅ 應用程式資訊",
+                },
+                "description": `啟動時間： <t:${starttime}:R>`,
+                "fields": [
+                    {
+                        "name": "**應用程式名稱**",
+                        "value": `${ready.user.tag}   `,
+                        inline: true
+                    },
+                    {
+                        "name": "**版本**",
+                        "value": `${ver}   `,
+                        "inline": true
+                    },
+                    {
+                        "name": "**開發者**",
+                        "value": "Skiawm91",
+                        "inline": true
+                    },
+                    {
+                        "name": "**discord.js 版本**",
+                        "value": `${version}`,
+                        "inline": true
+                    },
+                    {
+                        "name": "**Github**",
+                        "value": "[連結](https://github.com/Skiawm91/Skhol-Bot)",
+                        "inline": true
+                    },
+                    {
+                        "name": "**上次資訊更新時間**",
+                        "value": `<t:${timestamp}:R> (<t:${timestamp}:f>)`
+                    },
+                ],
+                "footer": {
+                    "text": "Skhol Bot",
+                    "icon_url": ready.user.displayAvatarURL(clientID),
+                },
+                "timestamp": new Date().toISOString(),
+                "color": Math.floor(Math.random() * 0xFFFFFF),
+            };
             const logchannel = ready.channels.cache.get(logChannelID);
             logchannel.send({ embeds: [Embed] }).then((logmessage) => {
                 setInterval(() => {
                     const timestamp = Math.floor(Date.now() / 1000);
-                    const Embed = new EmbedBuilder()
-                        .setAuthor({ name: '✅ 應用程式資訊' })
-                        .setDescription(`啟動時間： <t:${starttime}:R>`)
-                        .addFields(
-                            { name: '**應用程式名稱**', value: `${ready.user.tag}   `, inline: true },
-                            { name: '**版本**', value: `${ver}   `, inline: true },
-                            { name: '**開發者**', value: 'Skiawm91', inline: true },
-                            { name: '**discord.js 版本**', value: `${version}`, inline: true },
-                            { name: '**Github**', value: `[連結](https://github.com/Skiawm91/Skhol-Bot)`, inline: true },
-                            { name: '**上次資訊更新時間**', value: `<t:${timestamp}:R> (<t:${timestamp}:f>)` },
-                        )
-                        .setFooter({ text: 'Skhol Bot', iconURL: ready.user.displayAvatarURL(clientID) })
-                        .setTimestamp();
+                    const Embed = {
+                        "author": {
+                            "name": "✅ 應用程式資訊",
+                        },
+                        "description": `啟動時間： <t:${starttime}:R>`,
+                        "fields": [
+                            {
+                                "name": "**應用程式名稱**",
+                                "value": `${ready.user.tag}   `,
+                                inline: true
+                            },
+                            {
+                                "name": "**版本**",
+                                "value": `${ver}   `,
+                                "inline": true
+                            },
+                            {
+                                "name": "**開發者**",
+                                "value": "Skiawm91",
+                                "inline": true
+                            },
+                            {
+                                "name": "**discord.js 版本**",
+                                "value": `${version}`,
+                                "inline": true
+                            },
+                            {
+                                "name": "**Github**",
+                                "value": "[連結](https://github.com/Skiawm91/Skhol-Bot)",
+                                "inline": true
+                            },
+                            {
+                                "name": "**上次資訊更新時間**",
+                                "value": `<t:${timestamp}:R> (<t:${timestamp}:f>)`
+                            },
+                        ],
+                        "footer": {
+                            "text": "Skhol Bot",
+                            "icon_url": ready.user.displayAvatarURL(clientID),
+                        },
+                        "timestamp": new Date().toISOString(),
+                        "color": Math.floor(Math.random() * 0xFFFFFF),
+                    }
                     logmessage.edit({ embeds: [Embed] });
                 }, 60_000);
             })

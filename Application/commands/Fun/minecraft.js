@@ -91,12 +91,36 @@ module.exports = {
                         "name": `伺服器 ${host} 的資訊`,
                     },
                     "fields": [
-                        { name: '**是否在線**', value: `${online}`, inline: true },
-                        { name: '**IP**', value: `${address}`, inline: true },
-                        { name: '**Port**', value: `${port}`, inline: true },
-                        { name: '**版本**', value: `${version}`, inline: true },
-                        { name: '**玩家**', value: `${onlineplayer}/${maxplayer}`, inline: true },
-                        { name: '**描述**', value: `${motd}`, inline: false },
+                        {
+                            "name": "**是否在線**",
+                            "value": `${online}`,
+                            "inline": true
+                        },
+                        {
+                            "name": "**IP**",
+                            "value": `${address}`,
+                            "inline": true
+                        },
+                        {
+                            "name": "**Port**",
+                            "value": `${port}`,
+                            "inline": true
+                        },
+                        {
+                            "name": "**版本**",
+                            "value": `${version}`,
+                            "inline": true
+                        },
+                        {
+                            "name": "**玩家**",
+                            "value": `${onlineplayer}/${maxplayer}`,
+                            "inline": true
+                        },
+                        {
+                            "name": "**描述**",
+                            "value": `${motd}`,
+                            "inline": false
+                        },
                     ],
                     "color": Math.floor(Math.random() * 0xFFFFFF),
                 };

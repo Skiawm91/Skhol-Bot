@@ -1,5 +1,4 @@
 // 這應該算是要求吧
-const { EmbedBuilder } = require('discord.js');
 const { client } = require('../../../bot');
 const { developerID, logChannelID } = require('../../../config');
 // 錯誤處理
@@ -11,11 +10,12 @@ module.exports = {
         const logChannel = client.channels.cache.get(logChannelID);
         const stackLines = error.stack.split('\n');
         const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
-        const logEmbed = new EmbedBuilder()
-            .setColor('#ff0000')
-            .setTitle(':x: 錯誤內容')
-            .setDescription(`\`\`\`${shortError}\`\`\``)
-            .setTimestamp()
+        const logEmbed = {
+            "title": ":x: 錯誤內容",
+            "description": `\`\`\`${shortError}\`\`\``,
+            "timestamp": new Date().toISOString(),
+            "color": 0xff0000,
+        };
         logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
     }
 }

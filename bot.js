@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { Client, Collection, GatewayIntentBits, REST, Routes, EmbedBuilder, Partials } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, REST, Routes, Partials } = require('discord.js');
 try {
     require('./config');
 } catch (error) {
