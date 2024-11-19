@@ -10,12 +10,14 @@ module.exports = {
         const logChannel = client.channels.cache.get(logChannelID);
         const stackLines = error.stack.split('\n');
         const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
+        const getUser = interaction.user.id;
+        const developers = developerID.map(getUser => `<@${getUser}>`).join(' ');        
         const logEmbed = {
             "title": ":x: 錯誤內容",
             "description": `\`\`\`${shortError}\`\`\``,
             "timestamp": new Date().toISOString(),
             "color": 0xff0000,
         };
-        logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
+        logChannel.send({ content: `${developers} 發生了錯誤！`, embeds: [logEmbed] });
     }
 }

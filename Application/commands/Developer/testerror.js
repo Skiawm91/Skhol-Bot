@@ -11,8 +11,9 @@ module.exports = {
         "contexts": [0],
     },
     async execute(interaction) {
-        if (interaction.user.id == developerID) {
-            await interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply({ ephemeral: true });
+        console.log(developerID)
+        if (developerID.includes(interaction.user.id)) {
             const logChannel = interaction.client.channels.cache.get(logChannelID);
             try {
                 throw new Error('這是一條測試錯誤的訊息');
@@ -20,14 +21,16 @@ module.exports = {
                 console.error('[錯誤] 發生了錯誤！\n', error);
                 if (Log){
                     const stackLines = error.stack.split('\n');
-                    const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
+                    const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');  
+                    const getUser = interaction.user.id;
+                    const developers = developerID.map(getUser => `<@${getUser}>`).join(' ');        
                     const logEmbed = {
                         "title": ":x: 錯誤內容",
                         "description": `\`\`\`${shortError}\`\`\``,
                         "timestamp": new Date().toISOString(),
                         "color": 0xff0000,
                     };
-                    logChannel.send({ content: `<@${developerID}> 發生了錯誤！`, embeds: [logEmbed] });
+                    logChannel.send({ content: `${developers} 發生了錯誤！`, embeds: [logEmbed] });
                 }
             }
             await interaction.followUp({ content: '測試錯誤訊息已發送！'});

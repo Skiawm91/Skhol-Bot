@@ -36,12 +36,15 @@ for (const folder of commandFolders) {
 const rest = new REST({ version: '10' }).setToken(appToken);
 (async () => {
     try {
-        console.info(`[資訊] 開始註冊 ${commands.length} 條指令！`);
+        console.info(`[資訊] 開始註冊 ${commands.length} 條指令！\n`);
         const data = await rest.put(
             Routes.applicationCommands(clientID),
             { body: commands },
         );
-        console.info(`[資訊] 成功註冊 ${data.length} 條指令！\n`);
+        for (command of commands) {
+            console.info(`[資訊] 被註冊的指令名稱：/${command.name}`)
+        }
+        console.info(`\n[資訊] 成功註冊 ${data.length} 條指令！\n`);
     } catch(error) {
         console.error(error);
     }
