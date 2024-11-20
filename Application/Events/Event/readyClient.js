@@ -47,31 +47,31 @@ module.exports = {
                     {
                         "name": "**應用程式名稱**",
                         "value": `${ready.user.tag}   `,
-                        inline: true
+                        inline: true,
                     },
                     {
                         "name": "**版本**",
                         "value": `${ver}   `,
-                        "inline": true
+                        "inline": true,
                     },
                     {
                         "name": "**開發者**",
                         "value": "Skiawm91",
-                        "inline": true
+                        "inline": true,
                     },
                     {
                         "name": "**discord.js 版本**",
                         "value": `${version}`,
-                        "inline": true
+                        "inline": true,
                     },
                     {
                         "name": "**Github**",
                         "value": "[連結](https://github.com/Skiawm91/Skhol-Bot)",
-                        "inline": true
+                        "inline": true,
                     },
                     {
                         "name": "**上次資訊更新時間**",
-                        "value": `<t:${timestamp}:R> (<t:${timestamp}:f>)`
+                        "value": `<t:${timestamp}:R> (<t:${timestamp}:f>)`,
                     },
                 ],
                 "footer": {
@@ -94,31 +94,31 @@ module.exports = {
                             {
                                 "name": "**應用程式名稱**",
                                 "value": `${ready.user.tag}   `,
-                                inline: true
+                                inline: true,
                             },
                             {
                                 "name": "**版本**",
                                 "value": `${ver}   `,
-                                "inline": true
+                                "inline": true,
                             },
                             {
                                 "name": "**開發者**",
                                 "value": "Skiawm91",
-                                "inline": true
+                                "inline": true,
                             },
                             {
                                 "name": "**discord.js 版本**",
                                 "value": `${version}`,
-                                "inline": true
+                                "inline": true,
                             },
                             {
                                 "name": "**Github**",
                                 "value": "[連結](https://github.com/Skiawm91/Skhol-Bot)",
-                                "inline": true
+                                "inline": true,
                             },
                             {
                                 "name": "**上次資訊更新時間**",
-                                "value": `<t:${timestamp}:R> (<t:${timestamp}:f>)`
+                                "value": `<t:${timestamp}:R> (<t:${timestamp}:f>)`,
                             },
                         ],
                         "footer": {

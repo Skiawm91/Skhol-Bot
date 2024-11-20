@@ -7,7 +7,7 @@ try {
     console.warn("[警告] config.example.js 需改為 config.js！");
     process.exit(1);
 }
-const { clientID, appToken } = require('./config');
+const { clientID, guildRegister, appToken } = require('./config');
 const fs = require('node:fs');
 const path = require('node:path');
 const ver = '0.4.0';
@@ -37,10 +37,18 @@ const rest = new REST({ version: '10' }).setToken(appToken);
 (async () => {
     try {
         console.info(`[資訊] 開始註冊 ${commands.length} 條指令！\n`);
-        const data = await rest.put(
-            Routes.applicationCommands(clientID),
-            { body: commands },
-        );
+        if (guildRegister) {
+            const guildID = require('./config');
+            var data = await rest.put(
+                Routes.applicationCommands(guildID),
+                { body: commands },
+            );
+        } else {
+            var data = await rest.put(
+                Routes.applicationCommands(clientID),
+                { body: commands },
+            );
+        }
         for (command of commands) {
             console.info(`[資訊] 被註冊的指令名稱：/${command.name}`)
         }
@@ -49,7 +57,7 @@ const rest = new REST({ version: '10' }).setToken(appToken);
         console.error(error);
     }
 })();
-// Collection
+// 創建新的資料庫
 client.commands = new Collection();
 client.buttons = new Collection();
 client.selectMenus = new Collection();

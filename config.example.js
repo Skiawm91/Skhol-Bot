@@ -1,26 +1,23 @@
-// 前言
-// 不算代替掉原設定檔，這只是因為我想添加註解，僅此。
-// 不過舊的也不能用了XD。
-// 可自定義任何代碼！例如添加新的const。
-
 // 應用程式
 // 從 https://discord.com/developers/applications 取得。
 const appToken = "your-token-here"; // 應用程式權杖
-const clientID = "your-id-here"; // 應用程式ID
+const clientID = "your-id-here"; // 應用程式
 
 // 伺服器 (公會)
-const guildID = "your-id-here"; // 伺服器ID (請填你自己的)
+const guildRegister = false; // 僅在伺服器 (公會) 註冊指令
+const guildID = "your-id-here"; // 伺服器ID (如果 guildRegister 為 false 則免)
 
 // 開發者
 // Log: 預設為 true。
 // testerror: 是否啟用 testerror 指令，預設為 false。
 // developerID: 必填選項，電腦客戶端左下角點開有個 "複製ID"。 
+//  如果要添加多位開發者，請查看範例：["userid1", "userid2"]
 // logChannelID: 如果 "Log" 值為 false，免填，否則必填。 
 const Log = true;
 const developerCommands = {
     "testerror": false,
 }
-const developerID = "your-id-here";
+const developerID = ["your-id-here"];
 const logChannelID = "your-id-here";
 
 // 自定義
@@ -55,6 +52,7 @@ const updateTime = "60";
 module.exports = { 
     appToken, // 權杖
     clientID, // 應用程式ID
+    guildRegister, // 是否僅於伺服器註冊指令
     guildID, // 伺服器ID
     Log, // 是否啟用日誌
     developerCommands, // testerror 指令是否啟用

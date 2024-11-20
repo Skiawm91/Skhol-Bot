@@ -56,12 +56,21 @@ module.exports = {
                 const avatar = `https://cravatar.eu/avatar/${uuid}/128.png`;
                 const Embed = {
                     "author": {
-                        "name": `玩家 ${id} 的資訊`,
+                        "name": `:white_check_mark: 玩家 ${id} 的資訊`,
                     },
                     "thumbnail": {
                         "url": avatar,
                     },
-                    "description": `UUID: ${uuid}\nSkin: [下載](${skin})`,
+                    "fields": [
+                        {
+                            "name": "UUID",
+                            "value": `${uuid}`,
+                        },
+                        {
+                            "name": "Skin",
+                            "value": `[下載](${skin})`,
+                        },
+                    ],
                     "color": Math.floor(Math.random() * 0xFFFFFF),
                 }
                 await interaction.followUp({ embeds: [Embed] });
@@ -94,32 +103,32 @@ module.exports = {
                         {
                             "name": "**是否在線**",
                             "value": `${online}`,
-                            "inline": true
+                            "inline": true,
                         },
                         {
                             "name": "**IP**",
                             "value": `${address}`,
-                            "inline": true
+                            "inline": true,
                         },
                         {
                             "name": "**Port**",
                             "value": `${port}`,
-                            "inline": true
+                            "inline": true,
                         },
                         {
                             "name": "**版本**",
                             "value": `${version}`,
-                            "inline": true
+                            "inline": true,
                         },
                         {
                             "name": "**玩家**",
                             "value": `${onlineplayer}/${maxplayer}`,
-                            "inline": true
+                            "inline": true,
                         },
                         {
                             "name": "**描述**",
                             "value": `${motd}`,
-                            "inline": false
+                            "inline": false,
                         },
                     ],
                     "color": Math.floor(Math.random() * 0xFFFFFF),
