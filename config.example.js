@@ -1,7 +1,7 @@
 // 應用程式
 // 從 https://discord.com/developers/applications 取得。
 const appToken = "your-token-here"; // 應用程式權杖
-const clientID = "your-id-here"; // 應用程式
+const clientID = "your-id-here"; // 應用程式ID
 
 // 伺服器 (公會)
 const guildRegister = false; // 僅在伺服器 (公會) 註冊指令
