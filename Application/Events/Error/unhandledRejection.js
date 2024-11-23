@@ -16,7 +16,7 @@ module.exports = {
             "title": ":x: 錯誤內容",
             "description": `\`\`\`${shortError}\`\`\``,
             "timestamp": new Date().toISOString(),
-            "color": 0xff0000,
+            "color": 0xE74C3C,
         };
         logChannel.send({ content: `${developers} 發生了錯誤！`, embeds: [logEmbed] });
     }

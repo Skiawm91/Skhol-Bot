@@ -9,23 +9,25 @@ const guildID = "your-id-here"; // 伺服器ID (如果 guildRegister 為 false �
 
 // 開發者
 // Log: 預設為 true。
-// testerror: 是否啟用 testerror 指令，預設為 false。
+// developerCommands: 開發者指令啟用選項。
 // developerID: 必填選項，電腦客戶端左下角點開有個 "複製ID"。 
 //  如果要添加多位開發者，請查看範例：["userid1", "userid2"]
 // logChannelID: 如果 "Log" 值為 false，免填，否則必填。 
 const Log = true;
 const developerCommands = {
-    "testerror": false,
+    "testerror": false, // 是否啟用 testerror 指令，預設為 false。
 }
 const developerID = ["your-id-here"];
 const logChannelID = "your-id-here";
 
 // 自定義
-// Presence: 在 activityText 之前加入一些自定義代碼
+// Presence: 對狀態的自訂義
 const Custom = {
-    "Presence": false,
-    "ActivityText_Var": false, // 如果 activityText 改為 var 來賦值的話
-    "Type_Var": false, // 如果 Type 改為 var 來賦值的話
+    "Presence": {
+        "Enabled": false, // 在 activityText 之前加入一些自定義代碼。
+        "ActivityText_Var": false, // 如果 activityText 改為 var 來賦值的話
+        "Type_Var": false, // 如果 Type 改為 var 來賦值的話
+    }
 }
 
 // 狀態訊息

@@ -64,6 +64,11 @@ module.exports = {
                 "type": ApplicationCommandOptionType.String,
                 "description": "嵌入式 - Footer Icon URL",
             },
+            {
+                "name": "顏色",
+                "type": ApplicationCommandOptionType.String,
+                "description": "嵌入式 - Color",
+            },
         ],
         "integration_types": [0, 1],
         "contexts": [0, 1, 2],
@@ -72,8 +77,16 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
         const channel = interaction.options.getChannel('頻道');
         if (interaction.options.getString('訊息')) {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n');} else {var message = interaction.options.getString('訊息');}
-        if (interaction.channel.type == 1 || interaction.channel.type == 3) {} else {if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {var message = message.replaceAll('@everyone', '')}}
-        await interaction.followUp({ content: '訊息已被發送！' })
+        if (message) {
+            if (interaction.channel.type === 1 || interaction.channel.type === 3) {} else {if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {var message = message.replaceAll('@everyone', '')}}
+        }
+        let color;
+        if (interaction.options.getString('顏色').startsWith('#')) {
+            color = parseInt(interaction.options.getString('顏色').slice(1), 16);
+        } else {
+            color = null;
+        }
+        await interaction.followUp({ content: '訊息已被發送！' });
         if (interaction.options.getBoolean('嵌入式') == true) {
             var Embed = {
                 "author": {
@@ -88,7 +101,7 @@ module.exports = {
                     "text": interaction.options.getString('頁尾'),
                     "icon_url": interaction.options.getString('頁尾圖示網址'),
                 },
-                "color": Math.floor(Math.random() * 0xFFFFFF),
+                "color": color,
             };
             if (message) {
                 if (interaction.channel.type == 1 || interaction.channel.type == 3) {

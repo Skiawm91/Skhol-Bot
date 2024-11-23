@@ -19,7 +19,7 @@ module.exports = {
         if (globalThis.Type == 'Playing') {var activityType = ActivityType.Playing;} else if (globalThis.Type == 'Watching') {var activityType = ActivityType.Watching;} else if (globalThis.Type == 'Listening') {var activityType = ActivityType.Listening;} else if (globalThis.Type == 'Streaming') {var activityType = ActivityType.Streaming;} else {var activityType = ActivityType.Custom;}
         if (Status == 'Online') {var statusType = PresenceUpdateStatus.Online} else if (Status == 'DoNotDisturb' || Status == 'DND') {var statusType = PresenceUpdateStatus.DoNotDisturb} else if (Status == 'Idle') {var statusType = PresenceUpdateStatus.Idle} else if (Status == 'Invisible') {var statusType = PresenceUpdateStatus.Invisible}
         if (Status == 'Online' || Status == 'DoNotDisturb' || Status == 'DND' || Status == 'Idle' || Status == 'Invisible') {
-            if (Custom.Presence.Enable) {
+            if (Custom.Presence.Enabled) {
                 customPresence();
             }
             if (globalThis.Type === 'Playing') {var activityType = ActivityType.Playing;} else if (globalThis.Type == 'Watching') {var activityType = ActivityType.Watching;} else if (globalThis.Type == 'Listening') {var activityType = ActivityType.Listening;} else if (globalThis.Type == 'Streaming') {var activityType = ActivityType.Streaming;} else {var activityType = ActivityType.Custom;}
@@ -27,7 +27,7 @@ module.exports = {
             console.info('[資訊] 活動類型設為:', activityType, '\n       活動內容設為:', globalThis.activityText,'\n');
             ready.user.setPresence({ activities: [{ name: globalThis.activityText, type: activityType }], status: statusType });
         } else {
-            if (Custom.Presence.Enable) {
+            if (Custom.Presence.Enabled) {
                 customPresence();
             }
             if (globalThis.Type === 'Playing') {var activityType = ActivityType.Playing;} else if (globalThis.Type == 'Watching') {var activityType = ActivityType.Watching;} else if (globalThis.Type == 'Listening') {var activityType = ActivityType.Listening;} else if (globalThis.Type == 'Streaming') {var activityType = ActivityType.Streaming;} else {var activityType = ActivityType.Custom;}
@@ -134,7 +134,7 @@ module.exports = {
         }
         setInterval(() => {
             console.log('[資訊] 狀態已更新！\n');
-            if (Custom.Presence.Enable) {
+            if (Custom.Presence.Enabled) {
                 customPresence();
             }
             if (globalThis.Type == 'Playing') {var activityType = ActivityType.Playing;} else if (globalThis.Type == 'Watching') {var activityType = ActivityType.Watching;} else if (globalThis.Type == 'Listening') {var activityType = ActivityType.Listening;} else if (globalThis.Type == 'Streaming') {var activityType = ActivityType.Streaming;} else {var activityType = ActivityType.Custom;}

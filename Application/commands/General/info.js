@@ -41,7 +41,7 @@ module.exports = {
                     "thumbnail": {
                         "url": interaction.options.getUser('使用者').displayAvatarURL({ size: 512, dynamic: true }),
                     },
-                    "title": ":white_check_mark: 使用者資訊",
+                    "title": "✅ 使用者資訊",
                     "fields": [
                         {
                             "name": "**顯示名稱**",
@@ -73,7 +73,7 @@ module.exports = {
                     "thumbnail": {
                         "url": interaction.user.displayAvatarURL({ size: 512, dynamic: true }),
                     },
-                    "title": ":white_check_mark: 使用者資訊",
+                    "title": "✅ 使用者資訊",
                     "fields": [
                         {
                             "name": "**顯示名稱**",
@@ -109,7 +109,7 @@ module.exports = {
                 "thumbnail": {
                     "url": interaction.guild.iconURL({ dynamic: true }),
                 },
-                "title": "伺服器資訊",
+                "title": "✅ 伺服器資訊",
                 "fields": [
                     {
                         "name": "伺服器名稱",

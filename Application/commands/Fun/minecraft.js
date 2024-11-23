@@ -56,7 +56,7 @@ module.exports = {
                 const avatar = `https://cravatar.eu/avatar/${uuid}/128.png`;
                 const Embed = {
                     "author": {
-                        "name": `:white_check_mark: 玩家 ${id} 的資訊`,
+                        "name": `✅ 玩家 ${id} 的資訊`,
                     },
                     "thumbnail": {
                         "url": avatar,
@@ -97,7 +97,7 @@ module.exports = {
                 const maxplayer = data.players.max;
                 const Embed = {
                     "author": {
-                        "name": `伺服器 ${host} 的資訊`,
+                        "name": `✅ 伺服器 ${host} 的資訊`,
                     },
                     "fields": [
                         {
