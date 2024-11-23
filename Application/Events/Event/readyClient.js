@@ -2,13 +2,8 @@
 const { Events, ActivityType, PresenceUpdateStatus, version } = require('discord.js');
 const { ver } = require('../../../bot');
 const { clientID, Log, Custom, customPresence, activityText, Type, Status, updateTime, logChannelID } = require('../../../config');
-// 額外要求
-if (Custom.Presence.ActivityText_Var) {
-    globalThis.activityText = activityText;
-}
-if (Custom.Presence.Type_Var) {
-    globalThis.Type = Type;
-}
+globalThis.activityText = activityText;
+globalThis.Type = Type;
 // 客戶端登入資訊
 module.exports = {
     name: Events.ClientReady,
