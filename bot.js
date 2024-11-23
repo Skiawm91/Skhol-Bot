@@ -10,7 +10,7 @@ try {
 const { clientID, guildRegister, appToken } = require('./config');
 const fs = require('node:fs');
 const path = require('node:path');
-const ver = '0.4.0';
+const ver = '0.5.0';
 // 程式開始運作
 console.log(`Skhol Bot v${ver}\nMade By Skiawm91\n`);
 // 建立客戶端實作
