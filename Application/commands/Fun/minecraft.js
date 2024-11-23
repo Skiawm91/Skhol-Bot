@@ -1,36 +1,49 @@
 // 這應該算是要求吧
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { ApplicationCommandOptionType } = require('discord.js');
 const axios = require('axios');
 // 創建指令
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('minecraft')
-        .setDescription('取得 Minecraft 資訊')
-        .addSubcommand((subcommand) =>
-            subcommand
-                .setName('player')
-                .setDescription('取得 Minecraft 玩家資訊')
-                .addStringOption((option) =>
-                    option
-                        .setName('玩家')
-                        .setDescription('輸入玩家ID')
-                        .setRequired(true)),
-        )
-        .addSubcommand((subcommand) =>
-            subcommand
-                .setName('server')
-                .setDescription('取得 Minecraft 伺服器資訊')
-                .addStringOption((option) =>
-                    option
-                        .setName('伺服器')
-                        .setDescription('輸入伺服器IP')
-                        .setRequired(true))
-                .addBooleanOption((option) =>
-                    option
-                        .setName('基岩版')
-                        .setDescription('伺服器是否為基岩版')
-                        .setRequired(true)),
-        ),
+    data: {
+        "name": "minecraft",
+        "type": 1,
+        "description": "取得 Minecraft 資訊",
+        "options": [
+            {
+                "name": "player",
+                "type": ApplicationCommandOptionType.Subcommand,
+                "description": "取得 Minecraft 玩家資訊",
+                "options": [
+                    {
+                        "name": "玩家",
+                        "type": ApplicationCommandOptionType.String,
+                        "description": "輸入玩家ID",
+                        "required": true,
+                    },
+                ],
+            },
+            {
+                "name": "server",
+                "type": ApplicationCommandOptionType.Subcommand,
+                "description": "取得 Minecraft 伺服器資訊",
+                "options": [
+                    {
+                        "name": "伺服器",
+                        "type": ApplicationCommandOptionType.String,
+                        "description": "輸入伺服器Host",
+                        "required": true,
+                    },
+                    {
+                        "name": "基岩版",
+                        "type": ApplicationCommandOptionType.Boolean,
+                        "description": "伺服器是否為基岩版",
+                        "required": true,
+                    },
+                ],
+            },
+        ],
+        "integration_types": [0, 1],
+        "contexts": [0, 1, 2],
+    },
     async execute(interaction) {
         await interaction.deferReply();
         if (interaction.options.getSubcommand() == 'player') {
@@ -41,10 +54,25 @@ module.exports = {
                 const uuid = data.id;
                 const skin = `https://crafatar.com/skins/${uuid}.png`;
                 const avatar = `https://cravatar.eu/avatar/${uuid}/128.png`;
-                const Embed = new EmbedBuilder()
-                    .setAuthor({ name: `玩家 ${id} 的資訊` })
-                    .setThumbnail(avatar)
-                    .setDescription(`UUID: ${uuid}\nSkin: [下載](${skin})`);
+                const Embed = {
+                    "author": {
+                        "name": `✅ 玩家 ${id} 的資訊`,
+                    },
+                    "thumbnail": {
+                        "url": avatar,
+                    },
+                    "fields": [
+                        {
+                            "name": "UUID",
+                            "value": `${uuid}`,
+                        },
+                        {
+                            "name": "Skin",
+                            "value": `[下載](${skin})`,
+                        },
+                    ],
+                    "color": Math.floor(Math.random() * 0xFFFFFF),
+                }
                 await interaction.followUp({ embeds: [Embed] });
             } else {
                 await interaction.followUp({ content: '玩家ID在3~16個字元之間！', ephemeral: true });
@@ -67,16 +95,44 @@ module.exports = {
                 const motd = data.motd.clean;
                 const onlineplayer = data.players.online;
                 const maxplayer = data.players.max;
-                const Embed = new EmbedBuilder()
-                    .setAuthor({ name: `伺服器 ${host} 的資訊` })
-                    .addFields(
-                        { name: '**是否在線**', value: `${online}`, inline: true },
-                        { name: '**IP**', value: `${address}`, inline: true },
-                        { name: '**Port**', value: `${port}`, inline: true },
-                        { name: '**版本**', value: `${version}`, inline: true },
-                        { name: '**玩家**', value: `${onlineplayer}/${maxplayer}`, inline: true },
-                        {name: '**描述**', value: `${motd}`, inline: false },
-                    );
+                const Embed = {
+                    "author": {
+                        "name": `✅ 伺服器 ${host} 的資訊`,
+                    },
+                    "fields": [
+                        {
+                            "name": "**是否在線**",
+                            "value": `${online}`,
+                            "inline": true,
+                        },
+                        {
+                            "name": "**IP**",
+                            "value": `${address}`,
+                            "inline": true,
+                        },
+                        {
+                            "name": "**Port**",
+                            "value": `${port}`,
+                            "inline": true,
+                        },
+                        {
+                            "name": "**版本**",
+                            "value": `${version}`,
+                            "inline": true,
+                        },
+                        {
+                            "name": "**玩家**",
+                            "value": `${onlineplayer}/${maxplayer}`,
+                            "inline": true,
+                        },
+                        {
+                            "name": "**描述**",
+                            "value": `${motd}`,
+                            "inline": false,
+                        },
+                    ],
+                    "color": Math.floor(Math.random() * 0xFFFFFF),
+                };
                 await interaction.followUp({ embeds: [Embed] });
             }
         }

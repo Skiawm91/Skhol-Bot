@@ -1,10 +1,10 @@
 {
   "name": "skhol-bot",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "A Discord Bot, using discord.js v14.",
   "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bot.js"
   },
   "author": "Skiawm91",
   "license": "GNU GPL",
@@ -18,10 +18,10 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Skiawm91/SakuraBot.git"
+    "url": "git+https://github.com/Skiawm91/Skhol-Bot.git"
   },
   "bugs": {
-    "url": "https://github.com/Skiawm91/SakuraBot/issues"
+    "url": "https://github.com/Skiawm91/Skhol-Bot/issues"
   },
-  "homepage": "https://github.com/Skiawm91/SakuraBot#readme"
+  "homepage": "https://github.com/Skiawm91/Skhol-Bot#readme"
 }

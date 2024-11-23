@@ -1,20 +1,28 @@
 // 這應該算是要求吧
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { PermissionFlagsBits, ApplicationCommandOptionType } = require('discord.js');
 // 創建指令
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('kick')
-        .setDescription('將使用者踢出伺服器')
-        .addUserOption((option) =>
-            option
-                .setName('使用者')
-                .setDescription('指定使用者')
-                .setRequired(true))
-        .addStringOption((option) =>
-            option
-                .setName('原因')
-                .setDescription('填寫原因'))
-        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers | PermissionFlagsBits.BanMembers),
+    data: {
+        "name": "kick",
+        "type": 1,
+        "description": "將使用者踢出伺服器",
+        "options": [
+            {
+                "name": "使用者",
+                "type": ApplicationCommandOptionType.User,
+                "description": "指定使用者",
+                "required": true,
+            },
+            {
+                "name": "原因",
+                "type": ApplicationCommandOptionType.String,
+                "description": "填寫原因",
+            }
+        ],
+        "default_member_permissions": String(PermissionFlagsBits.KickMembers | PermissionFlagsBits.BanMembers),
+        "integration_types": [0],
+        "contexts": [0],
+    },
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
         const member = interaction.options.getMember('使用者');
