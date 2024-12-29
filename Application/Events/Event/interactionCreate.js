@@ -21,7 +21,8 @@ module.exports = {
                 }
             }
         } else if (interaction.isButton()) {
-            const button = interaction.client.buttons.get(interaction.customId);
+            const button = interaction.client.buttons.get(interaction.customId.replace(/_\d+/g, ''));
+            console.log(button)
             if (!button) {
                 console.error(`[錯誤] 沒有與 ${interaction.customId} 相符的按鈕！`);
                 return;
@@ -31,9 +32,9 @@ module.exports = {
             } catch (error) {
                 console.error(error);
                 if (interaction.replied || interaction.deferred) {
-                    await interaction.followUp({ content: '執行這個按鈕時出現錯誤！', ephemeral: true});
+                    await interaction.followUp({ content: '執行這顆按鈕時出現錯誤！', ephemeral: true});
                 } else {
-                    await interaction.reply({ content: '執行這個按鈕時出現錯誤！', ephemeral: true });
+                    await interaction.reply({ content: '執行這顆按鈕時出現錯誤！', ephemeral: true });
                 }
             }
         } else if (interaction.isStringSelectMenu()) {
@@ -47,9 +48,9 @@ module.exports = {
             } catch (error) {
                 console.error(error);
                 if (interaction.replied || interaction.deferred) {
-                    await interaction.followUp({ content: '執行這個選單時出現錯誤！', ephemeral: true});
+                    await interaction.followUp({ content: '執行這條選單時出現錯誤！', ephemeral: true});
                 } else {
-                    await interaction.reply({ content: '執行這個選單時出現錯誤！', ephemeral: true });
+                    await interaction.reply({ content: '執行這條選單時出現錯誤！', ephemeral: true });
                 }
             }
         }
