@@ -1,6 +1,8 @@
 // 這應該算是要求吧
 const { Log, developerCommands, developerID, logChannelID } = require('../../../config');
-if (!developerCommands.testerror) return;
+if (!developerCommands.testerror) {
+    console.info('[資訊] "testerror" 已停用，將不會被註冊！')
+}
 // 創建指令
 module.exports = {
     data: {
