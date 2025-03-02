@@ -44,11 +44,6 @@ module.exports = {
                     "value": "General"
                 },
                 {
-                    "label": "管理指令",
-                    "description": "需要擁有管理權限才可使用的指令",
-                    "value": "Manage"
-                },
-                {
                     "label": "訊息指令",
                     "description": "讓應用程式傳送訊息",
                     "value": "Message"

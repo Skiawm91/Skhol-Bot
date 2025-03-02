@@ -30,14 +30,6 @@ module.exports = {
                 };
                 await interaction.followUp({ embeds: [generalEmbed] });
                 break;
-            case 'Manage':
-                const manageEmbed = {
-                    "title": "指令列表 - 管理指令",
-                    "description": "kick - 將成員踢出伺服器\nban - 將使用者禁止進入伺服器\ntimeout - 將使用者禁言",
-                    "color": Math.floor(Math.random() * 0xFFFFFF),
-                };
-                await interaction.followUp({ embeds: [manageEmbed] });
-                break;
             case 'Message':
                 const msgEmbed = {
                     "title": "指令列表 - 訊息指令",
