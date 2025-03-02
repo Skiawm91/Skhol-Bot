@@ -10,8 +10,7 @@ module.exports = {
         const logChannel = client.channels.cache.get(logChannelID);
         const stackLines = error.stack.split('\n');
         const shortError = stackLines.slice(0, 3).concat(['...']).concat(stackLines.slice(-2)).join('\n');            
-        const getUser = interaction.user.id;
-        const developers = developerID.map(getUser => `<@${getUser}>`).join(' ');        
+        const developers = developerID.map(devUser => `<@${devUser}>`).join(' ');        
         const logEmbed = {
             "title": ":x: 錯誤內容",
             "description": `\`\`\`${shortError}\`\`\``,
