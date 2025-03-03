@@ -1,7 +1,8 @@
 // 這應該算是要求吧
 const { Log, developerCommands, developerID, logChannelID } = require('../../../config');
 if (!developerCommands.testerror) {
-    console.info('[資訊] "testerror" 已停用，將不會被註冊！')
+    console.info('[資訊] "testerror" 已停用，將不會被註冊！');
+    return;
 }
 // 創建指令
 module.exports = {
@@ -14,7 +15,6 @@ module.exports = {
     },
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
-        console.log(developerID)
         if (developerID.includes(interaction.user.id)) {
             const logChannel = interaction.client.channels.cache.get(logChannelID);
             try {
