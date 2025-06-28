@@ -1,5 +1,5 @@
 // 這應該算是要求吧
-const { developerCommands, developerID, linkApi } = require('../../../config');
+const { developerCommands, developerID, pathApi } = require('../../../config');
 const axios = require('axios');
 if (!developerCommands.testapi) {
     console.info('[資訊] "testapi" 已停用，將不會被註冊！');
@@ -21,7 +21,7 @@ module.exports = {
                 "title": "❌ 測試失敗",
                 "description": "可能是無法連接api或檔案不是此Bot支援的格式，\n請查看連接的api是否中斷。\n\napi檔案格式範例：[點擊查看](https://skiawm91.github.io/Skhol-Dev/api/test.json)"
             }
-            const target = await axios.get(linkApi).catch(error => {
+            const target = await axios.get(pathApi).catch(error => {
                 globalThis.error = "AxiosError";
             });
             if (globalThis.error !== "AxiosError") {

@@ -21,7 +21,7 @@ const developerCommands = {
 }
 const developerID = ["your-id-here"];
 const logChannelID = "your-id-here";
-const linkApi = "https://skiawm91.github.io/Skhol-Dev/api/test.json";
+const pathApi = "https://skiawm91.github.io/Skhol-Dev/api/test.json";
 
 // 自定義
 // Presence: 對狀態的自訂義
@@ -63,7 +63,7 @@ module.exports = {
     developerCommands, // testerror 指令是否啟用
     developerID, // 開發者ID
     logChannelID, // 日誌頻道ID
-    linkApi, // api連結
+    pathApi, // api連結
     Custom, // 自訂義
     customPresence, // 自訂義狀態代碼
     activityText, // 狀態文字
