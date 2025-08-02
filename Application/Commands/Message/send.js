@@ -78,10 +78,14 @@ module.exports = {
         const channel = interaction.options.getChannel('頻道');
         if (interaction.options.getString('訊息')) {var message = interaction.options.getString('訊息').replaceAll('\\n', '\n');} else {var message = interaction.options.getString('訊息');}
         if (message) {
-            if (interaction.channel.type === 1 || interaction.channel.type === 3) {} else {if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {var message = message.replaceAll('@everyone', '')}}
+            if (interaction.channel && interaction.channel.type === 1 || interaction.channel.type === 3) {} else {if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {var message = message.replaceAll('@everyone', '')}}
+        }
+        let description;
+        if (interaction.options.getString('內文')) {
+            description = interaction.options.getString('內文').replaceAll('\\n', '\n');
         }
         let color;
-        if (interaction.options.getString('顏色').startsWith('#')) {
+        if (interaction.options.getString('顏色') && interaction.options.getString('顏色').startsWith('#')) {
             color = parseInt(interaction.options.getString('顏色').slice(1), 16);
         } else {
             color = null;
@@ -96,7 +100,7 @@ module.exports = {
                 },
                 "title": interaction.options.getString('標題'),
                 "url": interaction.options.getString('標題網址'),
-                "description": interaction.options.getString('內文').replaceAll('\\n', '\n'),
+                "description": description,
                 "footer": {
                     "text": interaction.options.getString('頁尾'),
                     "icon_url": interaction.options.getString('頁尾圖示網址'),
