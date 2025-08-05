@@ -31,13 +31,7 @@ module.exports = {
                         "type": ApplicationCommandOptionType.String,
                         "description": "輸入伺服器Host",
                         "required": true,
-                    },
-                    {
-                        "name": "基岩版",
-                        "type": ApplicationCommandOptionType.Boolean,
-                        "description": "伺服器是否為基岩版",
-                        "required": true,
-                    },
+                    }
                 ],
             },
         ],
@@ -79,57 +73,66 @@ module.exports = {
             }
         } else if (interaction.options.getSubcommand() == 'server') {
             const host = interaction.options.getString('伺服器');
-            if (interaction.options.getBoolean('基岩版') == true) {
-                var target = await axios.get(`https://api.mcstatus.io/v2/status/bedrock/${host}`);
-            } else {
-                var target = await axios.get(`https://api.mcstatus.io/v2/status/java/${host}`);
-            }
-            const data = target.data;
-            if (!data.ip_address) {
+            var targetBE = await axios.get(`https://api.mcstatus.io/v2/status/bedrock/${host}`);
+            var targetJE = await axios.get(`https://api.mcstatus.io/v2/status/java/${host}`);
+            const dataBE = targetBE?.data, dataJE = targetJE.data;
+            if (!dataJE.ip_address && !dataBE.ip_address) {
                 await interaction.followUp(`伺服器 ${host} 不存在！`);
             } else {
-                const online = data.online;
-                const address = data.ip_address;
-                const port = data.port;
-                const version = data.version.name ?? data.version.name_clean;
-                const motd = data.motd.clean;
-                const onlineplayer = data.players.online;
-                const maxplayer = data.players.max;
+                // BE
+                const onlineBE = dataBE.online ?? "不存在";
+                const addressBE = dataBE.ip_address ?? "不存在";
+                const portBE = dataBE.port ?? "不存在";
+                const versionBE = dataBE?.version?.name ?? "不存在";
+                const motdBE = dataBE?.motd?.clean ?? "不存在";
+                const playerBE = dataBE?.players ? `${dataBE.players.online}/${dataBE.players.max}` : "不存在";
+                // JE
+                const onlineJE = dataJE.online ?? "不存在";
+                const addressJE = dataJE.ip_address ?? "不存在";
+                const portJE = dataJE.port ?? "不存在";
+                const versionJE = dataJE?.version?.name_clean ?? "不存在";
+                const motdJE = dataJE?.motd?.clean ?? "不存在";
+                const playerJE = dataJE?.players ? `${dataJE.players.online}/${dataJE.players.max}` : "不存在";
                 const Embed = {
                     "author": {
                         "name": `✅ 伺服器 ${host} 的資訊`,
                     },
                     "fields": [
                         {
-                            "name": "**是否在線**",
-                            "value": `${online}`,
+                            "name": "**是否在線 (BE, JE)**",
+                            "value": `${onlineBE}, ${onlineJE} `,
                             "inline": true,
                         },
                         {
-                            "name": "**IP**",
-                            "value": `${address}`,
+                            "name": "**IP (BE, JE)**",
+                            "value": `${addressBE}, ${addressJE}`,
                             "inline": true,
                         },
                         {
-                            "name": "**Port**",
-                            "value": `${port}`,
+                            "name": "**Port (BE, JE)**",
+                            "value": `${portBE}, ${portJE}`,
                             "inline": true,
                         },
                         {
-                            "name": "**版本**",
-                            "value": `${version}`,
+                            "name": "**版本 (BE, JE)**",
+                            "value": `${versionBE}, ${versionJE}`,
                             "inline": true,
                         },
                         {
-                            "name": "**玩家**",
-                            "value": `${onlineplayer}/${maxplayer}`,
+                            "name": "**玩家 (BE, JE)**",
+                            "value": `${playerBE}, ${playerJE}`,
                             "inline": true,
                         },
                         {
-                            "name": "**描述**",
-                            "value": `${motd}`,
+                            "name": "**描述 (Bedrock Edition)**",
+                            "value": `${motdBE}`,
                             "inline": false,
                         },
+                                                {
+                            "name": "**描述 (Java Edition)**",
+                            "value": `${motdJE}`,
+                            "inline": false,
+                        }
                     ],
                     "color": Math.floor(Math.random() * 0xFFFFFF),
                 };
