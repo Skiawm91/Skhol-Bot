@@ -13,7 +13,7 @@ const guildID = "your-id-here"; // 伺服器ID (如果 guildRegister 為 false �
 // developerID: 必填選項，電腦客戶端左下角點開有個 "複製ID"。 
 //  如果要添加多位開發者，請查看範例：["userid1", "userid2"]
 // logChannelID: 如果 "Log" 值為 false，免填，否則必填。 
-// linkApi: 請輸入你的api連結，建議保持原連結。
+// pathApi: 請輸入你的api連結，建議保持原連結。
 const Log = true;
 const developerCommands = {
     "testerror": false, // 是否啟用 testerror 指令，預設為 false。
